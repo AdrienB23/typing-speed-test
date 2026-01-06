@@ -1,0 +1,45 @@
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-400);
+}
+
+.stats-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--spacing-200);
+}
+
+.stats-row, .settings-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.stats-row {
+  gap: var(--spacing-300);
+}
+
+.settings-container {
+  gap: var(--spacing-200);
+}
+
+.stats-cell {
+  display: flex;
+  gap: var(--spacing-150);
+}
+
+.divider {
+  width: 1px;
+  align-self: stretch;
+  background-color: var(--color-divider);
+}
+
+.setting-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-75);
+}

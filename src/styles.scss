@@ -93,3 +93,11 @@ html {
 .secondary {
   color: var(--color-text-secondary);
 }
+
+/* =====================
+  PRIME NG OVERRIDES
+===================== */
+
+.p-selectbutton {
+  gap: var(--spacing-75);
+}

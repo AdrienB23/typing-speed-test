@@ -1,1 +1,56 @@
-<p>home works!</p>
+<div class="main-content">
+  <div class="stats-container">
+    <div class="stats-row">
+      <div class="stats-cell">
+        <span class="text-3 secondary">WPM:</span>
+        <span class="text-2 primary b">{{ wpm }}</span>
+      </div>
+      <div class="divider"></div>
+      <div class="stats-cell">
+        <span class="text-3 secondary">Accuracy:</span>
+        <span class="text-2 primary b">{{ accuracy }}%</span>
+      </div>
+      <div class="divider"></div>
+      <div class="stats-cell">
+        <span class="text-3 secondary">Time:</span>
+        <span class="text-2 primary b">{{ time }}</span>
+      </div>
+    </div>
+    <div class="settings-container">
+      <div class="setting-container">
+        <div class="setting-label-container">
+          <span class="text-5 secondary">Difficulty:</span>
+        </div>
+        <p-select-button [allowEmpty]="false" [options]="difficultyOptions" [(ngModel)]="selectedDifficulty"
+                         optionLabel="label" optionValue="value">
+          <ng-template #item let-difficulty>
+              <span [class]="{
+                'text-5': true,
+                'selected': selectedDifficulty === difficulty.value,
+                'primary': selectedDifficulty !== difficulty.value
+              }">{{ difficulty.label }}</span>
+          </ng-template>
+        </p-select-button>
+      </div>
+      <div class="divider"></div>
+      <div class="setting-container">
+        <div class="setting-label-container">
+          <span class="text-5 secondary">Mode:</span>
+        </div>
+        <p-select-button [allowEmpty]="false" [options]="modeOptions" [(ngModel)]="selectedMode" optionLabel="label"
+                         optionValue="value">
+          <ng-template #item let-mode>
+              <span [class]="{
+                'text-5': true,
+                'selected': selectedMode === mode.value,
+                'primary': selectedMode !== mode.value
+              }">{{ mode.label }}</span>
+          </ng-template>
+        </p-select-button>
+      </div>
+    </div>
+  </div>
+  <div class="text-container">
+
+  </div>
+</div>

@@ -21,6 +21,7 @@ $neutral-palette: (
   0: #FFFFFF,
   400: #949497,
   500: #717178,
+  700: #3A3A3A,
   800: #262626,
   900: #121212
 );
@@ -83,6 +84,8 @@ $radius-full: 999px;
 
   --color-text-primary: #{map.get($neutral-palette, 0)};
   --color-text-secondary: #{map.get($neutral-palette, 400)};
+
+  --color-divider: #{map.get($neutral-palette, 700)};
 
   --spacing-0: #{$spacing-0};
   --spacing-25: #{$spacing-25};
