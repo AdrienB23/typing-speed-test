@@ -1,0 +1,7 @@
+main {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-400) var(--spacing-1400);
+  background-color: var(--color-bg-primary);
+  height: 100vh;
+}

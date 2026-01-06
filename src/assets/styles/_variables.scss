@@ -7,6 +7,7 @@
 
 $font-primary: 'Sora', sans-serif;
 $bold: 700;
+$semi-bold: 600;
 $regular: 400;
 
 // =========================
@@ -71,18 +72,17 @@ $radius-full: 999px;
   /* ============================================================
    SECTION : GLOBAL
    ============================================================ */
-  --font-regular: #{$regular};
-  --font-bold: #{$bold};
 
-  --color-yellow: #{$yellow};
-  --color-green: #{$green};
-  --color-red: #{$red};
-  @each $key, $value in $neutral-palette {
-    --color-neutral-#{$key}: #{$value};
-  }
-  @each $key, $value in $blue-palette {
-    --color-blue-#{$key}: #{$value};
-  }
+  --color-bg-primary: #{map.get($neutral-palette, 900)};
+  --color-bg-primary-button: #{map.get($blue-palette, 600)};
+  --color-bg-primary-button-hover: #{map.get($blue-palette, 400)};
+
+  --color-bg-secondary-button: #{map.get($neutral-palette, 0)};
+
+  --color-outline-button-focus: #{map.get($blue-palette, 400)};
+
+  --color-text-primary: #{map.get($neutral-palette, 0)};
+  --color-text-secondary: #{map.get($neutral-palette, 400)};
 
   --spacing-0: #{$spacing-0};
   --spacing-25: #{$spacing-25};
