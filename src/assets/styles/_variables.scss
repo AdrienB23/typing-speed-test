@@ -1,0 +1,117 @@
+@use "sass:map";
+@use 'sass:color';
+
+// =========================
+//           FONT
+// =========================
+
+$font-primary: 'Sora', sans-serif;
+$bold: 700;
+$regular: 400;
+
+// =========================
+//        COLORS
+// =========================
+
+$yellow: #F4DC73;
+$green: #4DD67B;
+$red: #D64D5B;
+$neutral-palette: (
+  0: #FFFFFF,
+  400: #949497,
+  500: #717178,
+  800: #262626,
+  900: #121212
+);
+$blue-palette: (
+  400: #177DFF,
+  600: #4CA6FF,
+);
+
+// =========================
+//        SPACING
+// =========================
+
+$spacing-0: 0;
+$spacing-25: 2px;
+$spacing-50: 4px;
+$spacing-75: 6px;
+$spacing-100: 8px;
+$spacing-125: 10px;
+$spacing-150: 12px;
+$spacing-200: 16px;
+$spacing-250: 20px;
+$spacing-300: 24px;
+$spacing-400: 32px;
+$spacing-500: 40px;
+$spacing-600: 48px;
+$spacing-800: 64px;
+$spacing-1000: 80px;
+$spacing-1200: 96px;
+$spacing-1400: 112px;
+$spacing-1600: 128px;
+$spacing-1800: 140px;
+
+// =========================
+//      BORDER RADIUS
+// =========================
+
+$radius-0: 0;
+$radius-4: 4px;
+$radius-6: 6px;
+$radius-8: 8px;
+$radius-10: 10px;
+$radius-12: 12px;
+$radius-16: 16px;
+$radius-20: 20px;
+$radius-24: 24px;
+$radius-full: 999px;
+
+:root {
+  /* ============================================================
+   SECTION : GLOBAL
+   ============================================================ */
+  --font-regular: #{$regular};
+  --font-bold: #{$bold};
+
+  --color-yellow: #{$yellow};
+  --color-green: #{$green};
+  --color-red: #{$red};
+  @each $key, $value in $neutral-palette {
+    --color-neutral-#{$key}: #{$value};
+  }
+  @each $key, $value in $blue-palette {
+    --color-blue-#{$key}: #{$value};
+  }
+
+  --spacing-0: #{$spacing-0};
+  --spacing-25: #{$spacing-25};
+  --spacing-50: #{$spacing-50};
+  --spacing-75: #{$spacing-75};
+  --spacing-100: #{$spacing-100};
+  --spacing-125: #{$spacing-125};
+  --spacing-150: #{$spacing-150};
+  --spacing-200: #{$spacing-200};
+  --spacing-250: #{$spacing-250};
+  --spacing-300: #{$spacing-300};
+  --spacing-400: #{$spacing-400};
+  --spacing-500: #{$spacing-500};
+  --spacing-600: #{$spacing-600};
+  --spacing-800: #{$spacing-800};
+  --spacing-1000: #{$spacing-1000};
+  --spacing-1200: #{$spacing-1200};
+  --spacing-1400: #{$spacing-1400};
+  --spacing-1600: #{$spacing-1600};
+  --spacing-1800: #{$spacing-1800};
+
+  --radius-0: #{$radius-0};
+  --radius-4: #{$radius-4};
+  --radius-6: #{$radius-6};
+  --radius-8: #{$radius-8};
+  --radius-10: #{$radius-10};
+  --radius-12: #{$radius-12};
+  --radius-16: #{$radius-16};
+  --radius-20: #{$radius-20};
+  --radius-24: #{$radius-24};
+  --radius-full: #{$radius-full};
+}

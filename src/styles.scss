@@ -1,1 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+@use "./assets/styles/variables" as *;
+@use "./assets/styles/fonts" as *;
+
+html {
+  font-family: $font-primary;
+  font-weight: $regular;
+}
