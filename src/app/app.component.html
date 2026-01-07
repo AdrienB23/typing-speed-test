@@ -1,4 +1,7 @@
 <main>
   <app-header [personalBest]="personalBest"></app-header>
-  <app-home></app-home>
+  <app-home [(homeState)]="homeState" ></app-home>
+  @if (homeState === HomeState.STARTED) {
+    <app-footer [(homeState)]="homeState" ></app-footer>
+  }
 </main>

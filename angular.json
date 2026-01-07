@@ -15,6 +15,10 @@
           "prefix": "app",
           "style": "scss",
           "type": "component"
+        },
+        "@schematics/angular:service": {
+          "skipTests": true,
+          "type": "service"
         }
       },
       "root": "",

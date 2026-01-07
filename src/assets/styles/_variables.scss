@@ -26,8 +26,8 @@ $neutral-palette: (
   900: #121212
 );
 $blue-palette: (
-  400: #177DFF,
-  600: #4CA6FF,
+  400: #4CA6FF,
+  600: #177DFF,
 );
 
 // =========================
@@ -77,13 +77,20 @@ $radius-full: 999px;
   --color-bg-primary: #{map.get($neutral-palette, 900)};
   --color-bg-primary-button: #{map.get($blue-palette, 600)};
   --color-bg-primary-button-hover: #{map.get($blue-palette, 400)};
-
   --color-bg-secondary-button: #{map.get($neutral-palette, 0)};
+  --color-bg-contrast-button: #{map.get($neutral-palette, 800)};
+
+  --color-border-button-selected: #{map.get($blue-palette, 400)};
+  --color-border-button-focus: #{map.get($neutral-palette, 0)};
+  --color-border-button: #{map.get($neutral-palette, 500)};
 
   --color-outline-button-focus: #{map.get($blue-palette, 400)};
 
   --color-text-primary: #{map.get($neutral-palette, 0)};
   --color-text-secondary: #{map.get($neutral-palette, 400)};
+  --color-text-selected: #{map.get($blue-palette, 400)};
+  --color-text-secondary-button: #{map.get($neutral-palette, 900)};
+  --color-text-contrast-button: var(--color-text-primary);
 
   --color-divider: #{map.get($neutral-palette, 700)};
 
@@ -117,4 +124,20 @@ $radius-full: 999px;
   --radius-20: #{$radius-20};
   --radius-24: #{$radius-24};
   --radius-full: #{$radius-full};
+
+  /* ============================================================
+   SECTION : SELECT BUTTON
+   ============================================================ */
+
+  --p-selectbutton-border-radius: var(--radius-8);
+
+  /* ============================================================
+   SECTION : TOGGLE BUTTON
+   ============================================================ */
+  --p-togglebutton-color: var(--color-text-primary);
+  --p-togglebutton-padding: var(--spacing-75) var(--spacing-125);
+  --p-togglebutton-border-radius: var(--radius-8);
+  --p-togglebutton-border-color: var(--color-border-button);
+  --p-togglebutton-checked-color: var(--color-text-selected);
+  --p-togglebutton-checked-border-color: var(--color-border-button-selected);
 }

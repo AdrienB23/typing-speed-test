@@ -43,3 +43,30 @@
   align-items: center;
   gap: var(--spacing-75);
 }
+
+.text-row {
+  position: relative;
+}
+
+.text-box {
+  width: 100%;
+  min-height: 100%;
+  opacity: 40%;
+  position: relative;
+}
+
+.blur {
+  filter: blur(16px);
+}
+
+.start-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-250);
+
+}

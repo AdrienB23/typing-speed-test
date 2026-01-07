@@ -22,15 +22,7 @@
           <span class="text-5 secondary">Difficulty:</span>
         </div>
         <p-select-button [allowEmpty]="false" [options]="difficultyOptions" [(ngModel)]="selectedDifficulty"
-                         optionLabel="label" optionValue="value">
-          <ng-template #item let-difficulty>
-              <span [class]="{
-                'text-5': true,
-                'selected': selectedDifficulty === difficulty.value,
-                'primary': selectedDifficulty !== difficulty.value
-              }">{{ difficulty.label }}</span>
-          </ng-template>
-        </p-select-button>
+                         (onChange)="loadText()" optionLabel="label" optionValue="value"></p-select-button>
       </div>
       <div class="divider"></div>
       <div class="setting-container">
@@ -38,19 +30,30 @@
           <span class="text-5 secondary">Mode:</span>
         </div>
         <p-select-button [allowEmpty]="false" [options]="modeOptions" [(ngModel)]="selectedMode" optionLabel="label"
-                         optionValue="value">
-          <ng-template #item let-mode>
-              <span [class]="{
-                'text-5': true,
-                'selected': selectedMode === mode.value,
-                'primary': selectedMode !== mode.value
-              }">{{ mode.label }}</span>
-          </ng-template>
-        </p-select-button>
+                         optionValue="value"></p-select-button>
       </div>
     </div>
   </div>
   <div class="text-container">
+    <div class="text-row">
+      <div [class]="{
+        'text-box': true,
+        'blur': homeState === HomeState.NOT_STARTED
+      }">
+        <p class="text-1 r primary">
+          @let currentText = currentText$ | async;
 
+          @if (currentText) {
+            {{ currentText.text }}
+          }
+        </p>
+      </div>
+      @if (homeState === HomeState.NOT_STARTED) {
+        <div class="start-container">
+          <button class="button-primary text-3 sb" (click)="startTest()">Start Typing Test</button>
+          <p class="text-3 sb primary">Or click the text and start typing</p>
+        </div>
+      }
+    </div>
   </div>
 </div>

@@ -19,18 +19,18 @@ html {
   font-size: 40px;
   line-height: 136%;
   letter-spacing: 0.4px;
+}
 
-  .mobile {
-    font-size: 24px;
-    line-height: 120%;
-    letter-spacing: 0.32px;
-  }
+.text-1.mobile {
+  font-size: 24px;
+  line-height: 120%;
+  letter-spacing: 0.32px;
+}
 
-  .mobile.r {
-    font-size: 32px;
-    line-height: 136%;
-    letter-spacing: 0.4px;
-  }
+.text-1.mobile.r {
+  font-size: 32px;
+  line-height: 136%;
+  letter-spacing: 0.4px;
 }
 
 .text-2 {
@@ -43,15 +43,15 @@ html {
   font-size: 20px;
   line-height: 120%;
   letter-spacing: -0.6px;
+}
 
-  .mobile {
-    font-size: 16px;
-    letter-spacing: -0.48px;
-  }
+.text-3.mobile {
+  font-size: 16px;
+  letter-spacing: -0.48px;
+}
 
-  .sb {
-    letter-spacing: -0.3px;
-  }
+.text-3.sb {
+  letter-spacing: -0.3px;
 }
 
 .text-4 {
@@ -95,9 +95,74 @@ html {
 }
 
 /* =====================
+        BUTTONS
+===================== */
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: solid 2px var(--color-outline-button-focus);
+  outline-offset: var(--spacing-25);
+}
+
+.button-primary {
+  background-color: var(--color-bg-primary-button);
+  color: var(--color-text-primary);
+  padding: var(--spacing-200) var(--spacing-300);
+  border-radius: var(--radius-12);
+}
+
+.button-primary:hover:not(:focus-visible):not(:focus) {
+  background-color: var(--color-bg-primary-button-hover);
+}
+
+.button-secondary {
+  background-color: var(--color-bg-secondary-button);
+  color: var(--color-text-secondary-button);
+  padding: var(--spacing-125) var(--spacing-200);
+  border-radius: var(--radius-12);
+}
+
+.button-secondary.contrast {
+  background-color: var(--color-bg-contrast-button);
+  color: var(--color-text-contrast-button);
+}
+
+.button-secondary:hover:not(:focus-visible):not(:focus) {
+  opacity: 90%;
+}
+
+.button-icon {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-125);
+}
+
+/* =====================
   PRIME NG OVERRIDES
 ===================== */
 
 .p-selectbutton {
   gap: var(--spacing-75);
+
+  .p-togglebutton {
+    border-radius: var(--radius-8) !important;
+    border-width: 1px !important;
+  }
+
+  .p-togglebutton:hover:not(:focus-visible):not(:focus) {
+    color: var(--color-text-selected) !important;
+    border-color: var(--color-border-button-selected);
+  }
+
+  .p-togglebutton:focus {
+    outline: solid 2px var(--color-outline-button-focus);
+    border: solid 1px var(--color-border-button-focus);
+    outline-offset: var(--spacing-25);
+    color: var(--color-text-primary) !important;
+  }
 }
