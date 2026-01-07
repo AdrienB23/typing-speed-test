@@ -6,13 +6,15 @@ import { DataText } from '../../shared/models/data-text';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { HomeState } from '../../shared/models/home-state.enum';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
   imports: [
     SelectButton,
     FormsModule,
-    AsyncPipe
+    AsyncPipe,
+    TranslatePipe
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -24,22 +26,24 @@ export class HomeComponent implements OnInit, OnChanges {
   @Input() homeState!: HomeState;
   @Output() homeStateChange = new EventEmitter<HomeState>();
 
-  difficultyOptions = [{ label: "Easy", value: "easy" }, { label: "Medium", value: "medium" }, {
-    label: "Hard",
-    value: "hard"
-  }]
-  modeOptions = [{ label: "Timed(60s)", value: "time" }, { label: "Passage", value: "passage" }]
+  difficultyOptions!: { label: string, value: string }[];
+  modeOptions!: { label: string, value: string }[];
   selectedDifficulty: 'easy' | 'medium' | 'hard' = "easy";
   selectedMode: 'time' | 'passage' = "time";
 
   currentText$!: Observable<DataText>;
   protected readonly HomeState = HomeState;
 
-  constructor(private dataTextService: DataTextService) {
+  constructor(
+    private dataTextService: DataTextService,
+    private translate: TranslateService
+  ) {
   }
 
   ngOnInit() {
     this.loadText();
+    this.buildDifficultyOptions();
+    this.buildModeOptions();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -52,8 +56,41 @@ export class HomeComponent implements OnInit, OnChanges {
     this.currentText$ = this.dataTextService.getRandomText(this.selectedDifficulty);
   }
 
+  difficultyChange() {
+    if (this.homeState === HomeState.NOT_STARTED) {
+      this.loadText();
+    }
+  }
+
   startTest() {
     this.homeState = HomeState.STARTED;
     this.homeStateChange.emit(this.homeState);
+  }
+
+  private buildDifficultyOptions() {
+    this.translate
+      .get([
+        'DIFFICULTY.EASY',
+        'DIFFICULTY.MEDIUM',
+        'DIFFICULTY.HARD',
+      ])
+      .subscribe(t => {
+        this.difficultyOptions = [
+          { label: t['DIFFICULTY.EASY'], value: 'easy' },
+          { label: t['DIFFICULTY.MEDIUM'], value: 'medium' },
+          { label: t['DIFFICULTY.HARD'], value: 'hard' },
+        ];
+      });
+  }
+
+  private buildModeOptions() {
+    this.translate
+      .get(['MODE.TIMED', 'MODE.PASSAGE'])
+      .subscribe(t => {
+        this.modeOptions = [
+          { label: t['MODE.TIMED'] + ' (60s)', value: 'time' },
+          { label: t['MODE.PASSAGE'], value: 'passage' },
+        ];
+      });
   }
 }

@@ -3,6 +3,7 @@ import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { HomeState } from './shared/models/home-state.enum';
+import { I18nService } from './shared/services/i18n.service';
 
 @Component({
   selector: 'app-root',
@@ -20,4 +21,7 @@ export class App {
   homeState = HomeState.NOT_STARTED;
 
   protected readonly HomeState = HomeState;
+  constructor(i18n: I18nService) {
+    i18n.init();
+  }
 }

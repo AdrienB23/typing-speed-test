@@ -1,9 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { HomeState } from '../../models/home-state.enum';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-footer',
-  imports: [],
+  imports: [
+    TranslatePipe
+  ],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })

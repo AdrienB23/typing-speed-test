@@ -2,32 +2,32 @@
   <div class="stats-container">
     <div class="stats-row">
       <div class="stats-cell">
-        <span class="text-3 secondary">WPM:</span>
+        <span class="text-3 secondary">{{ 'STATS.WPM' | translate }}:</span>
         <span class="text-2 primary b">{{ wpm }}</span>
       </div>
       <div class="divider"></div>
       <div class="stats-cell">
-        <span class="text-3 secondary">Accuracy:</span>
+        <span class="text-3 secondary">{{ 'STATS.ACCURACY' | translate }}:</span>
         <span class="text-2 primary b">{{ accuracy }}%</span>
       </div>
       <div class="divider"></div>
       <div class="stats-cell">
-        <span class="text-3 secondary">Time:</span>
+        <span class="text-3 secondary">{{ 'STATS.TIME' | translate }}:</span>
         <span class="text-2 primary b">{{ time }}</span>
       </div>
     </div>
     <div class="settings-container">
       <div class="setting-container">
         <div class="setting-label-container">
-          <span class="text-5 secondary">Difficulty:</span>
+          <span class="text-5 secondary">{{ 'DIFFICULTY.LABEL' | translate }}:</span>
         </div>
         <p-select-button [allowEmpty]="false" [options]="difficultyOptions" [(ngModel)]="selectedDifficulty"
-                         (onChange)="loadText()" optionLabel="label" optionValue="value"></p-select-button>
+                         (onChange)="difficultyChange()" optionLabel="label" optionValue="value"></p-select-button>
       </div>
       <div class="divider"></div>
       <div class="setting-container">
         <div class="setting-label-container">
-          <span class="text-5 secondary">Mode:</span>
+          <span class="text-5 secondary">{{ 'MODE.LABEL' | translate }}:</span>
         </div>
         <p-select-button [allowEmpty]="false" [options]="modeOptions" [(ngModel)]="selectedMode" optionLabel="label"
                          optionValue="value"></p-select-button>
@@ -50,8 +50,8 @@
       </div>
       @if (homeState === HomeState.NOT_STARTED) {
         <div class="start-container">
-          <button class="button-primary text-3 sb" (click)="startTest()">Start Typing Test</button>
-          <p class="text-3 sb primary">Or click the text and start typing</p>
+          <button class="button-primary text-3 sb" (click)="startTest()">{{ 'TEST.START' | translate }}</button>
+          <p class="text-3 sb primary">{{ 'TEST.HINT' | translate }}</p>
         </div>
       }
     </div>
