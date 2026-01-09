@@ -8,7 +8,7 @@
       <div class="divider-v"></div>
       <div class="stats-cell">
         <span class="text-3 secondary">{{ 'STATS.ACCURACY' | translate }}:</span>
-        <span class="text-2 primary b">{{ accuracy }}%</span>
+        <span class="text-2 primary b">{{ accuracy.toFixed(0) }}%</span>
       </div>
       <div class="divider-v"></div>
       <div class="stats-cell">
@@ -26,7 +26,7 @@
                            (onChange)="difficultyChange()" optionLabel="label" optionValue="value"></p-select-button>
         } @else {
           <p-select [options]="difficultyOptions" [(ngModel)]="selectedDifficulty" [fluid]="true" [required]="true"
-                    optionLabel="label" optionValue="value" (onChange)="difficultyChange()" >
+                    optionLabel="label" optionValue="value" (onChange)="difficultyChange()">
             <ng-template #item let-difficulty>
               <div class="select-item-container">
                 <div class="select-item">
@@ -53,7 +53,7 @@
                            (onChange)="modeChange()" optionLabel="label" optionValue="value"></p-select-button>
         } @else {
           <p-select [options]="modeOptions" [(ngModel)]="selectedMode" [fluid]="true" [required]="true"
-                    optionLabel="label" optionValue="value" (onChange)="modeChange()" >
+                    optionLabel="label" optionValue="value" (onChange)="modeChange()">
             <ng-template #item let-mode>
               <div class="select-item-container">
                 <div class="select-item">
@@ -76,13 +76,26 @@
         'text-box': true,
         'blur': homeState === HomeState.NOT_STARTED
       }">
-        <p class="text-1 r primary">
-          @let currentText = currentText$ | async;
+        @let currentText = currentText$ | async;
 
-          @if (currentText) {
-            {{ currentText.text }}
-          }
-        </p>
+        @if (currentText) {
+          <p class="typing-test text-1 r secondary" (keydown)="onKeyPress($event, currentText)">
+            @for (char of currentText.text; track $index) {
+              @if ($index === currentIndex) {
+                <mark>
+                  <span class="char" [class.correct]="isCorrect(textTyped[$index], char)">
+                    {{ char === ' ' ? '\u00A0' : char }}
+                  </span>
+                </mark>
+              } @else {
+                <span class="char" [class.correct]="isCorrect(textTyped[$index], char)" [class.incorrect]="$index < currentIndex && !isCorrect(textTyped[$index], char)" >
+                  {{ char === ' ' ? '\u00A0' : char }}
+                </span>
+              }
+            }
+          </p>
+          <input #hiddenInput type="text" class="hidden-input" (keydown)="onKeyPress($event, currentText)" [autofocus]="true"/>
+        }
       </div>
       @if (homeState === HomeState.NOT_STARTED) {
         <div class="start-container">

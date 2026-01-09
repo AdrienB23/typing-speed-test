@@ -51,11 +51,48 @@
 .text-box {
   width: 100%;
   min-height: 100%;
-  opacity: 40%;
   position: relative;
 }
 
+.typing-test {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  user-select: none;
+}
+
+.char {
+  position: relative;
+}
+
+.char.correct {
+  color: var(--color-text-correct);
+}
+
+.char.incorrect {
+  color: var(--color-text-incorrect);
+  text-decoration: underline;
+}
+
+mark {
+  background-color: var(--color-highlight);
+  color: var(--color-text-secondary);
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.hidden-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .blur {
+  opacity: 40%;
   filter: blur(16px);
 }
 

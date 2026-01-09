@@ -93,8 +93,12 @@ $radius-full: 999px;
   --color-text-selected: #{map.get($blue-palette, 400)};
   --color-text-secondary-button: #{map.get($neutral-palette, 900)};
   --color-text-contrast-button: var(--color-text-primary);
+  --color-text-correct: #{$green};
+  --color-text-incorrect: #{$red};
 
   --color-divider: #{map.get($neutral-palette, 700)};
+
+  --color-highlight: #{rgba(map.get($neutral-palette, 0), 0.2)};
 
   --spacing-0: #{$spacing-0};
   --spacing-25: #{$spacing-25};
