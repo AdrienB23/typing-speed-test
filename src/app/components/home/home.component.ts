@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, inject, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { SelectButton } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 import { DataTextService } from '../../shared/services/data-text.service';
@@ -7,6 +7,9 @@ import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { HomeState } from '../../shared/models/home-state.enum';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { ScreenService } from '../../shared/services/screen.service';
+import { Select } from 'primeng/select';
+import { RadioButton } from 'primeng/radiobutton';
 
 @Component({
   selector: 'app-home',
@@ -14,10 +17,12 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
     SelectButton,
     FormsModule,
     AsyncPipe,
-    TranslatePipe
+    TranslatePipe,
+    Select,
+    RadioButton
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit, OnChanges {
   @Input() wpm: number = 0;
@@ -30,6 +35,7 @@ export class HomeComponent implements OnInit, OnChanges {
   modeOptions!: { label: string, value: string }[];
   selectedDifficulty: 'easy' | 'medium' | 'hard' = "easy";
   selectedMode: 'time' | 'passage' = "time";
+  screen = inject(ScreenService);
 
   currentText$!: Observable<DataText>;
   protected readonly HomeState = HomeState;
@@ -60,6 +66,10 @@ export class HomeComponent implements OnInit, OnChanges {
     if (this.homeState === HomeState.NOT_STARTED) {
       this.loadText();
     }
+  }
+
+  modeChange() {
+    console.log("Mode change");
   }
 
   startTest() {

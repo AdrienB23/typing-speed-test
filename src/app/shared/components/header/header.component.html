@@ -1,6 +1,10 @@
 <header>
   <div class="logo-container">
-    <img src="assets/images/logo-large.svg" alt="Logo" />
+    @if (screen.isMobile()) {
+      <img src="assets/images/logo-small.svg" alt="Logo" />
+    } @else {
+      <img src="assets/images/logo-large.svg" alt="Logo" />
+    }
   </div>
   <div class="personal-best-container">
     <img src="assets/images/icon-personal-best.svg" alt="Icon personal best">

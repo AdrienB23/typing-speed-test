@@ -8,7 +8,7 @@ export class I18nService {
   constructor(private translate: TranslateService) {}
 
   init() {
-    const lang = localStorage.getItem('lang') ?? 'fr';
+    const lang = localStorage.getItem('lang') ?? 'en';
     this.translate.use(lang);
   }
 

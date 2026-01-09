@@ -7,3 +7,19 @@ main {
   height: 100%;
   gap: var(--spacing-800);
 }
+
+@media screen and (max-width: 992px) {
+  main {
+    padding: var(--spacing-400);
+    padding-bottom: var(--spacing-800);
+    gap: var(--spacing-500)
+  }
+}
+
+@media screen and (max-width: 600px) {
+  main {
+    padding: var(--spacing-200);
+    padding-bottom: var(--spacing-400);
+    gap: var(--spacing-400);
+  }
+}

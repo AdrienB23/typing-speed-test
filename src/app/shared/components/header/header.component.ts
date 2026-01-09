@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
+import { ScreenService } from '../../services/screen.service';
 
 @Component({
   selector: 'app-header',
@@ -11,4 +12,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class HeaderComponent {
   @Input() personalBest: number | undefined;
+
+  screen = inject(ScreenService);
 }

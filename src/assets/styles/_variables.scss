@@ -79,6 +79,8 @@ $radius-full: 999px;
   --color-bg-primary-button-hover: #{map.get($blue-palette, 400)};
   --color-bg-secondary-button: #{map.get($neutral-palette, 0)};
   --color-bg-contrast-button: #{map.get($neutral-palette, 800)};
+  --color-bg-checked-radio-button: #{map.get($blue-palette, 400)};
+  --color-bg-overlay: #{map.get($neutral-palette, 800)};
 
   --color-border-button-selected: #{map.get($blue-palette, 400)};
   --color-border-button-focus: #{map.get($neutral-palette, 0)};
@@ -140,4 +142,39 @@ $radius-full: 999px;
   --p-togglebutton-border-color: var(--color-border-button);
   --p-togglebutton-checked-color: var(--color-text-selected);
   --p-togglebutton-checked-border-color: var(--color-border-button-selected);
+
+  /* ============================================================
+   SECTION : RADIO BUTTON
+   ============================================================ */
+  --p-radiobutton-width: 16px;
+  --p-radiobutton-height: 16px;
+  --p-radiobutton-icon-size: 6px;
+  --p-radiobutton-background: var(--color-bg-contrast-button);
+  --p-radiobutton-border-color: var(--color-border-button);
+
+  --p-radiobutton-hover-border-color: var(--color-border-button);
+
+  --p-radiobutton-checked-background: var(--color-bg-checked-radio-button);
+  --p-radiobutton-icon-checked-color: var(--color-bg-primary);
+  --p-radiobutton-checked-hover-background: var(--color-bg-checked-radio-button);
+  --p-radiobutton-icon-checked-hover-color: var(--color-bg-primary);
+
+  /* ============================================================
+   SECTION : SELECT
+   ============================================================ */
+  --p-select-border-color: var(--color-border-button);
+  --p-select-hover-border-color: var(--color-border-button);
+  --p-select-focus-border-color: var(--color-border-button);
+  --p-select-color: var(--color-text-primary);
+  --p-select-border-radius: var(--radius-8);
+
+  --p-select-overlay-background: var(--color-bg-overlay);
+  --p-select-overlay-border-radius: var(--radius-8);
+  --p-select-overlay-color: var(--color-text-primary);
+
+  --p-select-list-padding: var(--spacing-25) 0;
+  --p-select-list-gap: var(--spacing-0);
+
+  --p-select-option-padding: var(--spacing-100) var(--spacing-125);
+
 }

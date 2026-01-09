@@ -5,10 +5,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: $font-primary;
 }
 
 html {
-  font-family: $font-primary;
   font-weight: $regular;
 }
 
@@ -104,7 +104,7 @@ button {
   cursor: pointer;
 }
 
-button:focus {
+button:focus, .p-radiobutton:focus {
   outline: solid 2px var(--color-outline-button-focus);
   outline-offset: var(--spacing-25);
 }
@@ -165,4 +165,24 @@ button:focus {
     outline-offset: var(--spacing-25);
     color: var(--color-text-primary) !important;
   }
+}
+
+.p-radiobutton {
+  border-radius: var(--radius-full);
+}
+
+.p-radiobutton-checked .p-radiobutton-box {
+  border: none !important;
+}
+
+.p-select {
+  padding: var(--spacing-75) var(--spacing-125);
+}
+
+.p-select-overlay  {
+  top: 7px !important;
+}
+
+p-selectitem:not(:last-child) .p-select-option {
+  border-bottom: solid 1px var(--color-divider);
 }
