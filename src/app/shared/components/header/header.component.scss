@@ -12,6 +12,13 @@ header {
   gap: var(--spacing-125);
 }
 
+.lang-container {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-100);
+  align-items: center;
+}
+
 .personal-best-container {
   display: flex;
   flex-direction: row;

@@ -6,6 +6,11 @@
       <img src="assets/images/logo-large.svg" alt="Logo" />
     }
   </div>
+  <div class="lang-container">
+    <span [class]="{'text-4': true, 'primary': lang === 'fr', 'secondary': lang === 'en'}">FR</span>
+    <p-toggleswitch [ngModel]="lang === 'en'" (onChange)="toggleLang()" />
+    <span [class]="{'text-4': true, 'primary': lang === 'en', 'secondary': lang === 'fr'}">EN</span>
+  </div>
   <div class="personal-best-container">
     <img src="assets/images/icon-personal-best.svg" alt="Icon personal best">
     <p class="text-4 secondary">{{ 'PERSONAL_BEST' | translate }}: <span class="primary">{{ personalBest ? personalBest : "/" }}</span></p>

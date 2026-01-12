@@ -1,7 +1,7 @@
 <main>
-  <app-header [personalBest]="personalBest"></app-header>
+  <app-header [personalBest]="personalBest" [lang]="lang" (onLangChange)="changeLang($event)" ></app-header>
   @if (appView === AppView.HOME) {
-    <app-home [(homeState)]="homeState" (testFinished)="onTestFinished()"></app-home>
+    <app-home [(homeState)]="homeState" [lang]="lang" (testFinished)="onTestFinished()"></app-home>
   } @else {
     <app-results></app-results>
   }

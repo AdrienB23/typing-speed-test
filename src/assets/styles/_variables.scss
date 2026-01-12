@@ -149,8 +149,31 @@ $radius-full: 999px;
   --p-togglebutton-checked-border-color: var(--color-border-button-selected);
 
   /* ============================================================
-   SECTION : RADIO BUTTON
+   SECTION : TOGGLE SWITCH
    ============================================================ */
+  --p-toggleswitch-width: 50px;
+  --p-toggleswitch-height: 24px;
+  --p-toggleswitch-border-radius: var(--radius-full);
+  --p-toggleswitch-border-width: 0;
+  --p-toggleswitch-gap: var(--spacing-100);
+  --p-toggleswitch-background: var(--color-bg-contrast-button);
+  --p-toggleswitch-hover-background: var(--color-bg-contrast-button);
+  --p-toggleswitch-checked-background: var(--color-bg-contrast-button);
+  --p-toggleswitch-checked-hover-background: var(--color-bg-contrast-button);
+  --p-toggleswitch-handle-border-radius: var(--radius-full);
+  --p-toggleswitch-handle-size: 16px;
+  --p-toggleswitch-handle-background: var(--color-bg-secondary-button);
+  --p-toggleswitch-handle-hover-background: var(--color-bg-secondary-button);
+  --p-toggleswitch-handle-checked-hover-background: var(--color-bg-secondary-button);
+  --p-toggleswitch-handle-checked-background: var(--color-bg-secondary-button);
+  --p-toggleswitch-handle-color: var(--color-bg-secondary-button);
+  --p-toggleswitch-handle-hover-color: var(--color-bg-secondary-button);
+  --p-toggleswitch-handle-checked-color: var(--color-bg-secondary-button);
+  --p-toggleswitch-handle-checked-hover-color: var(--color-bg-secondary-button);
+
+    /* ============================================================
+     SECTION : RADIO BUTTON
+     ============================================================ */
   --p-radiobutton-width: 16px;
   --p-radiobutton-height: 16px;
   --p-radiobutton-icon-size: 6px;

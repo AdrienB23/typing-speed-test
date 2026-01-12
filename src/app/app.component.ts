@@ -6,6 +6,7 @@ import { HomeState } from './shared/models/enums/home-state.enum';
 import { I18nService } from './shared/services/i18n.service';
 import { AppView } from './shared/models/enums/app-view.enum';
 import { ResultsComponent } from './components/results/results.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -23,15 +24,24 @@ export class App {
   personalBest: number | undefined;
   homeState = HomeState.NOT_STARTED;
   appView = AppView.HOME;
+  lang: 'en' | 'fr' = 'en';
 
   protected readonly HomeState = HomeState;
 
-  constructor(i18n: I18nService) {
+  constructor(
+    private i18n: I18nService,
+    private translate: TranslateService
+  ) {
     i18n.init();
   }
 
   onTestFinished() {
     this.appView = AppView.RESULTS;
+  }
+
+  changeLang(lang: 'en' | 'fr') {
+    this.lang = lang;
+    this.translate.use(lang);
   }
 
   protected readonly AppView = AppView;

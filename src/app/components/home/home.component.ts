@@ -16,7 +16,7 @@ import { SelectButton } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 import { DataTextService } from '../../shared/services/data-text.service';
 import { DataText } from '../../shared/models/data-text';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { HomeState } from '../../shared/models/enums/home-state.enum';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -42,6 +42,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   @Input() accuracy: number = 100;
   @Input() time: number = 60;
   @Input() homeState!: HomeState;
+  @Input() lang!: 'en' | 'fr';
   @Output() homeStateChange = new EventEmitter<HomeState>();
   @Output() testFinished = new EventEmitter<void>();
   @ViewChild('hiddenInput') hiddenInput!: ElementRef<HTMLInputElement>;
@@ -64,6 +65,8 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   isTimerRunning = false;
   protected readonly HomeState = HomeState;
 
+  private destroy$ = new Subject<void>();
+
   constructor(
     private dataTextService: DataTextService,
     private translate: TranslateService
@@ -81,6 +84,12 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     this.loadText();
     this.buildDifficultyOptions();
     this.buildModeOptions();
+    this.translate.onLangChange
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.buildDifficultyOptions();
+        this.buildModeOptions();
+      });
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -128,10 +137,6 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     if (this.homeState === HomeState.NOT_STARTED) {
       this.loadText();
     }
-  }
-
-  modeChange() {
-    console.log("Mode change");
   }
 
   startTest() {
@@ -262,10 +267,6 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     const totalWords = this.wordCount + (hasStartedTyping ? 1 : 0);
 
     this.wpm = Math.round(totalWords / elapsedMinutes);
-  }
-
-  isTestFinished(currentText: DataText) {
-    return this.textTyped.length === currentText.text.length || this.time <= 0;
   }
 
   private buildDifficultyOptions() {
