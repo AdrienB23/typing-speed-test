@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -69,7 +70,8 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     private dataTextService: DataTextService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private cdr: ChangeDetectorRef
   ) {
   }
 
@@ -223,6 +225,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
         this.time--;
       }
       this.updateWpm();
+      this.cdr.detectChanges();
 
       if (this.selectedMode === "time" && this.time <= 0) {
         this.stopTimer();
