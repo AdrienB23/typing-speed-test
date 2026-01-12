@@ -32,6 +32,18 @@
   gap: var(--spacing-150);
 }
 
+.perfect {
+  color: var(--color-text-correct);
+}
+
+.not-perfect {
+  color: var(--color-text-incorrect);
+}
+
+.running {
+  color: var(--color-text-running);
+}
+
 .divider-v {
   width: 1px;
   align-self: stretch;
@@ -61,8 +73,13 @@
   user-select: none;
 }
 
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
 .char {
-  position: relative;
+  display: inline-block;
 }
 
 .char.correct {

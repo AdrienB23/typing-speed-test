@@ -1,7 +1,11 @@
 <main>
   <app-header [personalBest]="personalBest"></app-header>
-  <app-home [(homeState)]="homeState" ></app-home>
-  @if (homeState === HomeState.STARTED) {
+  @if (appView === AppView.HOME) {
+    <app-home [(homeState)]="homeState" (testFinished)="onTestFinished()"></app-home>
+  } @else {
+    <app-results></app-results>
+  }
+  @if (appView === AppView.HOME && homeState === HomeState.STARTED) {
     <app-footer [(homeState)]="homeState" ></app-footer>
   }
 </main>

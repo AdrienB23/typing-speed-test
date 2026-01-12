@@ -1,5 +1,4 @@
 import {
-  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -19,7 +18,7 @@ import { DataTextService } from '../../shared/services/data-text.service';
 import { DataText } from '../../shared/models/data-text';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { HomeState } from '../../shared/models/home-state.enum';
+import { HomeState } from '../../shared/models/enums/home-state.enum';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ScreenService } from '../../shared/services/screen.service';
 import { Select } from 'primeng/select';
@@ -44,6 +43,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   @Input() time: number = 60;
   @Input() homeState!: HomeState;
   @Output() homeStateChange = new EventEmitter<HomeState>();
+  @Output() testFinished = new EventEmitter<void>();
   @ViewChild('hiddenInput') hiddenInput!: ElementRef<HTMLInputElement>;
 
   difficultyOptions!: { label: string, value: string }[];
@@ -53,11 +53,10 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   selectedTime = 60;
   screen = inject(ScreenService);
 
-  skipChars = ["—", ".", ":", ","];
-
   currentText$!: Observable<DataText>;
   currentIndex = 0;
   textTyped = "";
+  errorsTextTyped = "";
   wordCount = 0;
   wrongChars = 0;
   startTime!: number;
@@ -67,8 +66,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     private dataTextService: DataTextService,
-    private translate: TranslateService,
-    private cdr: ChangeDetectorRef
+    private translate: TranslateService
   ) {
   }
 
@@ -87,6 +85,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['homeState'] && changes['homeState'].currentValue === HomeState.NOT_STARTED) {
+      this.stopTimer();
       this.textTyped = "";
       this.currentIndex = 0;
       this.wordCount = 0;
@@ -103,6 +102,26 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
 
   loadText() {
     this.currentText$ = this.dataTextService.getRandomText(this.selectedDifficulty);
+  }
+
+  getWords(text: string) {
+    const words: { char: string; index: number }[][] = [];
+    let currentWord: { char: string; index: number }[] = [];
+
+    [...text].forEach((char, index) => {
+      currentWord.push({ char, index });
+
+      if (char === ' ') {
+        words.push(currentWord);
+        currentWord = [];
+      }
+    });
+
+    if (currentWord.length) {
+      words.push(currentWord);
+    }
+
+    return words;
   }
 
   difficultyChange() {
@@ -128,18 +147,13 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onKeyPress(event: KeyboardEvent, currentText: DataText) {
-    if (this.homeState === HomeState.NOT_STARTED || this.isTestFinished(currentText)) return;
-    console.log(this.textTyped, this.wrongChars, this.textTyped.length);
+    if (this.homeState === HomeState.NOT_STARTED) return;
 
     if (event.key === "Backspace") {
       if (this.currentIndex > 0) {
         const lastTypedIndex = this.currentIndex - 1;
         const expectedChar = currentText.text[lastTypedIndex];
         const typedChar = this.textTyped[lastTypedIndex];
-
-        if (!this.isCorrect(expectedChar, typedChar)) {
-          this.wrongChars = Math.max(0, this.wrongChars - 1);
-        }
 
         if (expectedChar === " " && typedChar === " ") {
           this.wordCount = Math.max(0, this.wordCount - 1);
@@ -172,17 +186,17 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     this.textTyped += typedChar;
-    this.currentIndex++;
-
-    if (this.skipChars.includes(currentText.text[this.currentIndex])) {
-      this.textTyped += currentText.text[this.currentIndex];
-      this.currentIndex++;
+    if (this.textTyped.length > this.errorsTextTyped.length) {
+      this.errorsTextTyped += typedChar;
     }
+    this.currentIndex++;
 
     if (this.textTyped.length === currentText.text.length) {
       this.stopTimer();
+      this.testFinished.emit();
     }
 
+    this.updateWrongChars(currentText);
     this.updateAccuracy();
 
     event.preventDefault();
@@ -200,13 +214,14 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     this.isTimerRunning = true;
 
     this.timerId = setInterval(() => {
-      this.time--;
+      if (this.selectedMode === "time") {
+        this.time--;
+      }
+      this.updateWpm();
 
-      this.cdr.detectChanges();
-      this.updateWpm()
-
-      if (this.time <= 0) {
+      if (this.selectedMode === "time" && this.time <= 0) {
         this.stopTimer();
+        this.testFinished.emit();
       }
     }, 1000);
   }
@@ -217,30 +232,40 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     this.isTimerRunning = false;
   }
 
+  updateWrongChars(currentText: DataText) {
+    this.wrongChars = 0;
+    for (let i = 0; i < this.errorsTextTyped.length; i++) {
+      if (!this.isCorrect(currentText.text[i], this.errorsTextTyped[i])) {
+        this.wrongChars ++;
+      }
+    }
+  }
+
   updateAccuracy() {
-    if (this.textTyped.length === 0) {
+    if (this.errorsTextTyped.length === 0) {
       this.accuracy = 100;
       return;
     }
 
     this.accuracy = Math.max(
       0,
-      Math.min(100, (1 - this.wrongChars / this.textTyped.length) * 100)
+      Math.min(100, (1 - this.wrongChars / this.errorsTextTyped.length) * 100)
     );
   }
 
   updateWpm() {
-    const elapsedMinutes = (Date.now() - this.startTime) / (this.selectedTime * 1000);
+    const elapsedMinutes = (Date.now() - this.startTime) / 60000;
+
     if (elapsedMinutes === 0) return;
 
-    const hasStartedTyping = this.textTyped.trim().length > 0;
+    const hasStartedTyping = this.errorsTextTyped.trim().length > 0;
     const totalWords = this.wordCount + (hasStartedTyping ? 1 : 0);
 
     this.wpm = Math.round(totalWords / elapsedMinutes);
   }
 
   isTestFinished(currentText: DataText) {
-    return this.time <= 0 || this.textTyped.length === currentText.text.length;
+    return this.textTyped.length === currentText.text.length || this.time <= 0;
   }
 
   private buildDifficultyOptions() {

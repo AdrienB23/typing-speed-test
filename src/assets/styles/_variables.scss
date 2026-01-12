@@ -95,6 +95,7 @@ $radius-full: 999px;
   --color-text-contrast-button: var(--color-text-primary);
   --color-text-correct: #{$green};
   --color-text-incorrect: #{$red};
+  --color-text-running: #{$yellow};
 
   --color-divider: #{map.get($neutral-palette, 700)};
 

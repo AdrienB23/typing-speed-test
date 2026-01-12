@@ -8,12 +8,12 @@
       <div class="divider-v"></div>
       <div class="stats-cell">
         <span class="text-3 secondary">{{ 'STATS.ACCURACY' | translate }}:</span>
-        <span class="text-2 primary b">{{ accuracy.toFixed(0) }}%</span>
+        <span class="text-2 primary b" [class.not-perfect]="homeState === HomeState.STARTED && accuracy < 100" [class.perfect]="accuracy === 100">{{ accuracy.toFixed(0) }}%</span>
       </div>
       <div class="divider-v"></div>
       <div class="stats-cell">
         <span class="text-3 secondary">{{ 'STATS.TIME' | translate }}:</span>
-        <span class="text-2 primary b">0:{{ time }}</span>
+        <span class="text-2 primary b" [class.running]="time < selectedTime">{{ selectedMode === "time" ? '0:' + time : '/' }}</span>
       </div>
     </div>
     <div class="settings-container">
@@ -80,21 +80,27 @@
 
         @if (currentText) {
           <p class="typing-test text-1 r secondary" (keydown)="onKeyPress($event, currentText)">
-            @for (char of currentText.text; track $index) {
-              @if ($index === currentIndex) {
-                <mark>
-                  <span class="char" [class.correct]="isCorrect(textTyped[$index], char)">
-                    {{ char === ' ' ? '\u00A0' : char }}
-                  </span>
-                </mark>
-              } @else {
-                <span class="char" [class.correct]="isCorrect(textTyped[$index], char)" [class.incorrect]="$index < currentIndex && !isCorrect(textTyped[$index], char)" >
-                  {{ char === ' ' ? '\u00A0' : char }}
-                </span>
-              }
+            @for (word of getWords(currentText.text); track $index) {
+              <span class="word">
+                @for (item of word; track item.index) {
+                  @if (item.index === currentIndex) {
+                    <mark>
+                      <span class="char">
+                        {{ item.char === ' ' ? '\u00A0' : item.char }}
+                      </span>
+                    </mark>
+                  } @else {
+                    <span class="char" [class.correct]="isCorrect(textTyped[item.index], item.char)"
+                          [class.incorrect]="item.index < currentIndex && !isCorrect(textTyped[item.index], item.char)">
+                      {{ item.char === ' ' ? '\u00A0' : item.char }}
+                    </span>
+                  }
+                }
+              </span>
             }
           </p>
-          <input #hiddenInput type="text" class="hidden-input" (keydown)="onKeyPress($event, currentText)" [autofocus]="true"/>
+          <input #hiddenInput type="text" class="hidden-input" (keydown)="onKeyPress($event, currentText)"
+                 [autofocus]="true"/>
         }
       </div>
       @if (homeState === HomeState.NOT_STARTED) {

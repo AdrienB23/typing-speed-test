@@ -19,6 +19,9 @@
         "@schematics/angular:service": {
           "skipTests": true,
           "type": "service"
+        },
+        "@schematics/angular:enum": {
+          "type": "enum"
         }
       },
       "root": "",

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { HomeState } from '../../models/home-state.enum';
+import { HomeState } from '../../models/enums/home-state.enum';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
