@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  @Input() personalBest: number | undefined;
+  @Input() personalBest: number | null = null;
   @Input() lang!: 'en' | 'fr';
   @Output() onLangChange = new EventEmitter<'en' | 'fr'>();
 

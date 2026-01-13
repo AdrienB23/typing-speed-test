@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   @Input() lang!: 'en' | 'fr';
   @Output() homeStateChange = new EventEmitter<HomeState>();
   @Output() testFinished = new EventEmitter<void>();
+  @Output() personalBestChange = new EventEmitter<number>();
   @ViewChild('hiddenInput') hiddenInput!: ElementRef<HTMLInputElement>;
 
   difficultyOptions!: { label: string, value: string }[];
@@ -199,8 +200,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     this.currentIndex++;
 
     if (this.textTyped.length === currentText.text.length) {
-      this.stopTimer();
-      this.testFinished.emit();
+      this.finishTest();
     }
 
     this.updateWrongChars(currentText);
@@ -228,8 +228,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
       this.cdr.detectChanges();
 
       if (this.selectedMode === "time" && this.time <= 0) {
-        this.stopTimer();
-        this.testFinished.emit();
+        this.finishTest();
       }
     }, 1000);
   }
@@ -238,6 +237,12 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     clearInterval(this.timerId);
     this.timerId = null;
     this.isTimerRunning = false;
+  }
+
+  finishTest() {
+    this.stopTimer();
+    this.testFinished.emit();
+    this.personalBestChange.emit(this.wpm);
   }
 
   updateWrongChars(currentText: DataText) {
