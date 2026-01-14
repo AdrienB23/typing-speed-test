@@ -67,8 +67,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   currentText: DataText | null = null;
   currentIndex = 0;
   textTyped = "";
-  errorsTextTyped = "";
-  wordCount = 0;
+  typedHistory = "";
   startTime!: number;
   timerId: any = null;
   isTimerRunning = false;
@@ -91,42 +90,39 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
+    this.restoreSettings();
+    this.initOptions();
+    this.listenToLangChange();
     this.loadText();
-    this.buildDifficultyOptions();
-    this.buildModeOptions();
-    this.buildTimeOptions();
-    this.translate.onLangChange
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        this.buildDifficultyOptions();
-        this.buildModeOptions();
-      });
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['homeState'] && changes['homeState'].currentValue === HomeState.NOT_STARTED) {
       this.stopTimer();
       this.textTyped = "";
-      this.errorsTextTyped = "";
+      this.typedHistory = "";
       this.currentIndex = 0;
-      this.wordCount = 0;
       this.time = this.selectedTime;
       this.wpm = 0;
-      this.accuracy = 0;
+      this.accuracy = 100;
       this.correctChars = 0;
       this.loadText();
     }
   }
 
   ngOnDestroy() {
-    if (this.timerId) clearInterval(this.timerId);
+    this.destroy$.next();
+    this.destroy$.complete();
+    this.stopTimer();
   }
 
   loadText() {
-    this.dataTextService.getRandomText(this.selectedDifficulty).subscribe(text => {
-      this.currentText = text;
-      this.cdr.detectChanges();
-    });
+    this.dataTextService.getRandomText(this.selectedDifficulty)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(text => {
+        this.currentText = text;
+        this.cdr.detectChanges();
+      });
   }
 
   getWords(text: string) {
@@ -149,10 +145,27 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     return words;
   }
 
-  difficultyChange() {
+  onDifficultyChange() {
     if (this.homeState === HomeState.NOT_STARTED) {
       this.loadText();
+      localStorage.setItem("difficulty", this.selectedDifficulty);
     }
+  }
+
+  onModeChange() {
+    localStorage.setItem("mode", this.selectedMode);
+
+    if (this.selectedMode === 'passage') {
+      localStorage.removeItem('time');
+    }
+    else if (localStorage.getItem('time') === null) {
+      localStorage.setItem('time', String(this.selectedTime));
+    }
+  }
+
+  onTimeChange() {
+    this.time = this.selectedTime;
+    localStorage.setItem("time", String(this.selectedTime));
   }
 
   startTest() {
@@ -163,12 +176,8 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
       this.hiddenInput.nativeElement.focus();
     });
 
+    this.accuracy = 0;
     this.startTime = Date.now();
-    this.wordCount = 0;
-  }
-
-  onTimeChange() {
-    this.time = this.selectedTime;
   }
 
   onKeyPress(event: KeyboardEvent, currentText: DataText) {
@@ -176,18 +185,9 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
 
     if (event.key === "Backspace") {
       if (this.currentIndex > 0) {
-        const lastTypedIndex = this.currentIndex - 1;
-        const expectedChar = currentText.text[lastTypedIndex];
-        const typedChar = this.textTyped[lastTypedIndex];
-
-        if (expectedChar === " " && typedChar === " ") {
-          this.wordCount = Math.max(0, this.wordCount - 1);
-        }
-
         this.currentIndex--;
         this.textTyped = this.textTyped.slice(0, -1);
 
-        this.updateAccuracy();
       }
       return;
     }
@@ -199,27 +199,18 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
 
     if (this.currentIndex >= currentText.text.length) return;
 
-    const expectedChar = currentText.text[this.currentIndex];
     const typedChar = event.key;
 
-    if (expectedChar === " " && typedChar === " ") {
-      this.wordCount++;
-    }
-
-    if (!this.isCorrect(expectedChar, typedChar)) {
-      this.wrongChars++;
-    }
-
     this.textTyped += typedChar;
-    if (this.textTyped.length > this.errorsTextTyped.length) {
-      this.errorsTextTyped += typedChar;
+    if (this.textTyped.length > this.typedHistory.length) {
+      this.typedHistory += typedChar;
     }
     this.currentIndex++;
 
     const currentChar = currentText.text[this.currentIndex];
     if (this.skipChars.includes(currentChar)) {
       this.textTyped += currentChar;
-      this.errorsTextTyped += currentChar;
+      this.typedHistory += currentChar;
       this.currentIndex++;
     }
 
@@ -227,8 +218,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
       this.finishTest();
     }
 
-    this.updateWrongChars(currentText);
-    this.updateAccuracy();
+    this.recomputeStats(currentText);
 
     event.preventDefault();
   }
@@ -277,8 +267,8 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     if (!this.currentText) return;
 
     this.correctChars = 0;
-    for (let i = 0; i < this.errorsTextTyped.length; i++) {
-      if (this.isCorrect(this.currentText.text[i], this.errorsTextTyped[i])) {
+    for (let i = 0; i < this.typedHistory.length; i++) {
+      if (this.isCorrect(this.currentText.text[i], this.typedHistory[i])) {
         this.correctChars++;
       }
     }
@@ -287,22 +277,22 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
 
   updateWrongChars(currentText: DataText) {
     this.wrongChars = 0;
-    for (let i = 0; i < this.errorsTextTyped.length; i++) {
-      if (!this.isCorrect(currentText.text[i], this.errorsTextTyped[i])) {
+    for (let i = 0; i < this.typedHistory.length; i++) {
+      if (!this.isCorrect(currentText.text[i], this.typedHistory[i])) {
         this.wrongChars ++;
       }
     }
   }
 
   updateAccuracy() {
-    if (this.errorsTextTyped.length === 0) {
+    if (this.typedHistory.length === 0) {
       this.accuracy = 100;
       return;
     }
 
     this.accuracy = Math.max(
       0,
-      Math.min(100, (1 - this.wrongChars / this.errorsTextTyped.length) * 100)
+      Math.min(100, (1 - this.wrongChars / this.typedHistory.length) * 100)
     );
   }
 
@@ -311,10 +301,16 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
 
     if (elapsedMinutes === 0) return;
 
-    const hasStartedTyping = this.errorsTextTyped.trim().length > 0;
-    const totalWords = this.wordCount + (hasStartedTyping ? 1 : 0);
+    const hasStartedTyping = this.typedHistory.trim().length > 0;
+    const words = this.typedHistory.trim().split(/\s+/).length;
+    const totalWords = words + (hasStartedTyping ? 1 : 0);
 
     this.wpm = Math.round(totalWords / elapsedMinutes);
+  }
+
+  private recomputeStats(currentText: DataText) {
+    this.updateWrongChars(currentText);
+    this.updateAccuracy();
   }
 
   private buildDifficultyOptions() {
@@ -351,5 +347,31 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
       { label: '60s', value: 60 },
       { label: '120s', value: 120 },
     ];
+  }
+
+  private restoreSettings() {
+    this.selectedDifficulty = this.getFromStorage('difficulty', 'easy');
+    this.selectedMode = this.getFromStorage('mode', 'time');
+    this.time = this.selectedTime = Number(this.getFromStorage('time', 60));
+  }
+
+  private initOptions() {
+    this.buildDifficultyOptions();
+    this.buildModeOptions();
+    this.buildTimeOptions();
+  }
+
+  private listenToLangChange() {
+    this.translate.onLangChange
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.buildDifficultyOptions();
+        this.buildModeOptions();
+      });
+  }
+
+  private getFromStorage<T>(key: string, fallback: T): T {
+    const value = localStorage.getItem(key);
+    return value !== null ? (value as T) : fallback;
   }
 }

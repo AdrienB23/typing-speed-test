@@ -9,7 +9,7 @@
       <div class="stats-cell">
         <span class="text-3 secondary">{{ 'STATS.ACCURACY' | translate }}:</span>
         <span class="text-2 primary b" [class.incorrect]="homeState === HomeState.STARTED && accuracy < 100"
-              [class.correct]="accuracy === 100">{{ accuracy.toFixed(0) }}%</span>
+              [class.correct]="homeState === HomeState.STARTED && accuracy === 100">{{ accuracy.toFixed(0) }}%</span>
       </div>
       <div class="divider-v"></div>
       <div class="stats-cell">
@@ -42,10 +42,10 @@
             <span class="text-5 secondary">{{ 'DIFFICULTY.LABEL' | translate }}:</span>
           </div>
           <p-select-button [allowEmpty]="false" [options]="difficultyOptions" [(ngModel)]="selectedDifficulty"
-                           (onChange)="difficultyChange()" optionLabel="label" optionValue="value"></p-select-button>
+                           (onChange)="onDifficultyChange()" optionLabel="label" optionValue="value"></p-select-button>
         } @else {
           <p-select [options]="difficultyOptions" [(ngModel)]="selectedDifficulty" [fluid]="true" [required]="true"
-                    optionLabel="label" optionValue="value" (onChange)="difficultyChange()">
+                    optionLabel="label" optionValue="value" (onChange)="onDifficultyChange()">
             <ng-template #item let-difficulty>
               <div class="select-item-container">
                 <div class="select-item">
@@ -68,11 +68,11 @@
           <div class="setting-label-container">
             <span class="text-5 secondary">{{ 'MODE.LABEL' | translate }}:</span>
           </div>
-          <p-select-button [allowEmpty]="false" [options]="modeOptions" [(ngModel)]="selectedMode" optionLabel="label"
-                           optionValue="value"></p-select-button>
+          <p-select-button [allowEmpty]="false" [options]="modeOptions" [(ngModel)]="selectedMode"
+                           (onChange)="onModeChange()" optionLabel="label" optionValue="value"></p-select-button>
         } @else {
           <p-select [options]="modeOptions" [(ngModel)]="selectedMode" [fluid]="true" [required]="true"
-                    optionLabel="label" optionValue="value">
+                    optionLabel="label" optionValue="value" (onChange)="onModeChange()">
             <ng-template #item let-mode>
               <div class="select-item-container">
                 <div class="select-item">
@@ -127,7 +127,7 @@
         }
       </div>
     } @else {
-      <p-progress-spinner ariaLabel="=loading" />
+      <p-progress-spinner ariaLabel="=loading"/>
     }
   </div>
 </div>
