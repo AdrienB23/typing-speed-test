@@ -121,6 +121,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   loadText() {
     this.dataTextService.getRandomText(this.selectedDifficulty).subscribe(text => {
       this.currentText = text;
+      this.cdr.detectChanges();
     });
   }
 
