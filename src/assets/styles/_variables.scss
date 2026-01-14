@@ -82,12 +82,6 @@ $radius-full: 999px;
   --color-bg-checked-radio-button: #{map.get($blue-palette, 400)};
   --color-bg-overlay: #{map.get($neutral-palette, 800)};
 
-  --color-border-button-selected: #{map.get($blue-palette, 400)};
-  --color-border-button-focus: #{map.get($neutral-palette, 0)};
-  --color-border-button: #{map.get($neutral-palette, 500)};
-
-  --color-outline-button-focus: #{map.get($blue-palette, 400)};
-
   --color-text-primary: #{map.get($neutral-palette, 0)};
   --color-text-secondary: #{map.get($neutral-palette, 400)};
   --color-text-selected: #{map.get($blue-palette, 400)};
@@ -97,9 +91,21 @@ $radius-full: 999px;
   --color-text-incorrect: #{$red};
   --color-text-running: #{$yellow};
 
+  --color-border-button-selected: #{map.get($blue-palette, 400)};
+  --color-border-button-focus: #{map.get($neutral-palette, 0)};
+  --color-border-button: #{map.get($neutral-palette, 500)};
+  --color-border-stats: #{map.get($neutral-palette, 700)};
+
+  --color-outline-button-focus: #{map.get($blue-palette, 400)};
+
   --color-divider: #{map.get($neutral-palette, 700)};
 
   --color-highlight: #{rgba(map.get($neutral-palette, 0), 0.2)};
+
+  --color-complete-shadow1: #{rgba($green, 0.2)};
+  --color-complete-shadow2: #{rgba($green, 0.1)};
+
+  --color-spinner: #{map.get($neutral-palette, 0)};
 
   --spacing-0: #{$spacing-0};
   --spacing-25: #{$spacing-25};
@@ -205,4 +211,11 @@ $radius-full: 999px;
 
   --p-select-option-padding: var(--spacing-100) var(--spacing-125);
 
+  /* ============================================================
+   SECTION : PROGRESS SPINNER
+   ============================================================ */
+  --p-progressspinner-color-one: var(--color-spinner);
+  --p-progressspinner-color-two: var(--color-spinner);
+  --p-progressspinner-color-three: var(--color-spinner);
+  --p-progressspinner-color-four: var(--color-spinner);
 }

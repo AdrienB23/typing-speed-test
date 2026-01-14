@@ -8,8 +8,8 @@
       <div class="divider-v"></div>
       <div class="stats-cell">
         <span class="text-3 secondary">{{ 'STATS.ACCURACY' | translate }}:</span>
-        <span class="text-2 primary b" [class.not-perfect]="homeState === HomeState.STARTED && accuracy < 100"
-              [class.perfect]="accuracy === 100">{{ accuracy.toFixed(0) }}%</span>
+        <span class="text-2 primary b" [class.incorrect]="homeState === HomeState.STARTED && accuracy < 100"
+              [class.correct]="accuracy === 100">{{ accuracy.toFixed(0) }}%</span>
       </div>
       <div class="divider-v"></div>
       <div class="stats-cell">
@@ -73,44 +73,44 @@
     </div>
   </div>
   <div class="text-container">
-    <div class="text-row">
-      <div [class]="{
-        'text-box': true,
-        'blur': homeState === HomeState.NOT_STARTED
-      }">
-        @let currentText = currentText$ | async;
-
-        @if (currentText) {
+    @if (currentText) {
+      <div class="text-row">
+        <div [class]="{
+          'text-box': true,
+          'blur': homeState === HomeState.NOT_STARTED
+        }">
           <p class="typing-test text-1 r secondary" (keydown)="onKeyPress($event, currentText)">
             @for (word of getWords(currentText.text); track $index) {
               <span class="word">
-                @for (item of word; track item.index) {
-                  @if (item.index === currentIndex) {
-                    <mark>
-                      <span class="char">
-                        {{ item.char === ' ' ? '\u00A0' : item.char }}
-                      </span>
-                    </mark>
-                  } @else {
-                    <span class="char" [class.correct]="isCorrect(textTyped[item.index], item.char)"
-                          [class.incorrect]="item.index < currentIndex && !isCorrect(textTyped[item.index], item.char)">
+              @for (item of word; track item.index) {
+                @if (item.index === currentIndex) {
+                  <mark>
+                    <span class="char">
                       {{ item.char === ' ' ? '\u00A0' : item.char }}
                     </span>
-                  }
+                  </mark>
+                } @else {
+                  <span class="char" [class.correct]="isCorrect(textTyped[item.index], item.char)"
+                        [class.incorrect]="item.index < currentIndex && !isCorrect(textTyped[item.index], item.char)">
+                    {{ item.char === ' ' ? '\u00A0' : item.char }}
+                  </span>
                 }
-              </span>
+              }
+            </span>
             }
           </p>
           <input #hiddenInput type="text" class="hidden-input" (keydown)="onKeyPress($event, currentText)"
                  [autofocus]="true"/>
+        </div>
+        @if (homeState === HomeState.NOT_STARTED) {
+          <div class="start-container">
+            <button class="button-primary text-3 sb" (click)="startTest()">{{ 'TEST.START' | translate }}</button>
+            <p class="text-3 sb primary">{{ 'TEST.HINT' | translate }}</p>
+          </div>
         }
       </div>
-      @if (homeState === HomeState.NOT_STARTED) {
-        <div class="start-container">
-          <button class="button-primary text-3 sb" (click)="startTest()">{{ 'TEST.START' | translate }}</button>
-          <p class="text-3 sb primary">{{ 'TEST.HINT' | translate }}</p>
-        </div>
-      }
-    </div>
+    } @else {
+      <p-progress-spinner ariaLabel="=loading" />
+    }
   </div>
 </div>

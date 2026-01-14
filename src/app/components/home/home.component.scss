@@ -12,6 +12,12 @@
   padding-bottom: var(--spacing-200);
 }
 
+.text-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .stats-row, .settings-container {
   display: flex;
   flex-direction: row;
@@ -30,18 +36,6 @@
 .stats-cell {
   display: flex;
   gap: var(--spacing-150);
-}
-
-.perfect {
-  color: var(--color-text-correct);
-}
-
-.not-perfect {
-  color: var(--color-text-incorrect);
-}
-
-.running {
-  color: var(--color-text-running);
 }
 
 .divider-v {

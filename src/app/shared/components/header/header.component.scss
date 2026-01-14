@@ -17,6 +17,7 @@ header {
   flex-direction: row;
   gap: var(--spacing-100);
   align-items: center;
+  user-select: none;
 }
 
 .personal-best-container {

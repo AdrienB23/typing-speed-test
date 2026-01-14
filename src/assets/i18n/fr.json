@@ -1,5 +1,6 @@
 {
   "PERSONAL_BEST": "Meilleur score",
+  "BEST": "Record",
 
   "STATS": {
     "WPM": "MPM",
@@ -24,15 +25,23 @@
   "TEST": {
     "START": "Démarrer le test de frappe",
     "HINT": "Ou cliquez sur le texte et commencez à taper",
-    "RESTART": "Redémarrer le test",
-    "GO_AGAIN": "Recommencer"
+    "RESTART": "Redémarrer le test"
   },
 
-  "COMPLETE": {
-    "TITLE": "Test terminé !",
-    "SUBTITLE": "Belle performance. Continue pour battre ton record.",
-    "HIGH_SCORE_TITLE": "Record battu !",
-    "HIGH_SCORE_SUBTITLE": "Tu tapes de plus en plus vite. C’était impressionnant.",
-    "BEAT_SCORE": "Bats ce score"
+  "RESULTS": {
+    "COMPLETE": {
+      "TITLE": "Test terminé !",
+      "SUBTITLE": "Belle performance. Continue pour battre ton record."
+    },
+    "NEW_BEST": {
+      "TITLE": "Record battu !",
+      "SUBTITLE": "Tu tapes de plus en plus vite. C’était une frappe impressionnante."
+    },
+    "FIRST_TEST": {
+      "TITLE": "Référence établie !",
+      "SUBTITLE": "Tu as posé les bases. Le vrai défi commence maintenant : bats ce score."
+    },
+    "BEAT_SCORE": "Bats ce score",
+    "GO_AGAIN": "Recommencer"
   }
 }

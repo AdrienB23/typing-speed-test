@@ -1,1 +1,47 @@
-<p>results works!</p>
+<div class="content-container">
+  <img [src]="'assets/images/icon-' + (resultState === ResultState.NEW_BEST ? 'new-pb' : 'completed') + '.svg'"
+       [class.completed]="resultState !== ResultState.NEW_BEST"
+       [alt]="resultState === ResultState.NEW_BEST ? 'Party icon' : 'Completed icon'" class="result-icon"/>
+  <div class="message-container">
+    <p class="text-1 primary b" [class.mobile]="screen.isMobile()">{{ 'RESULTS.' + resultState + '.TITLE' | translate }}</p>
+    <p [class]="{
+      'text-3': !screen.isMobile(),
+      'text-5': screen.isMobile(),
+      'secondary': true
+    }">{{ 'RESULTS.' + resultState + '.SUBTITLE' | translate }}</p>
+  </div>
+  <div class="stats-row">
+    <div class="stats-cell">
+      <span class="text-3 secondary">{{ 'STATS.WPM' | translate }}:</span>
+      <span class="text-2 b primary">{{ wpm }}</span>
+    </div>
+    <div class="stats-cell">
+      <span class="text-3 secondary">{{ 'STATS.ACCURACY' | translate }}:</span>
+      <span class="text-2 b primary" [class.incorrect]="accuracy < 100"
+            [class.correct]="accuracy === 100">{{ accuracy.toFixed(0) }}%</span>
+    </div>
+    <div class="stats-cell">
+      <span class="text-3 secondary">{{ 'STATS.CHARACTERS' | translate }}:</span>
+      <p class="text-2 b secondary"><span class="correct">{{ correctChars }}</span>/<span
+        class="incorrect">{{ wrongChars }}</span></p>
+    </div>
+  </div>
+  <button class="button-secondary button-icon" (click)="restart()">
+    <span class="text-3 sb">
+      {{ (resultState === ResultState.DEFAULT ? 'RESULTS.GO_AGAIN' : 'RESULTS.BEAT_SCORE') | translate }}
+    </span>
+    <img src="assets/images/icon-restart-black.svg" alt="Restart Icon"/>
+  </button>
+</div>
+@if (resultState === ResultState.NEW_BEST) {
+  <div class="confetti-container">
+    <img src="assets/images/pattern-confetti.svg" alt="Confetti"/>
+  </div>
+} @else {
+  <div class="red-star-container">
+    <img src="assets/images/pattern-star-2.svg" alt="Red Star Icon">
+  </div>
+  <div class="yellow-star-container">
+    <img src="assets/images/pattern-star-1.svg" alt="Yellow Star Icon">
+  </div>
+}

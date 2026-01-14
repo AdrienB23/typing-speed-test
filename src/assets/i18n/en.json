@@ -1,5 +1,6 @@
 {
   "PERSONAL_BEST": "Personal Best",
+  "BEST": "Best",
 
   "STATS": {
     "WPM": "WPM",
@@ -24,15 +25,23 @@
   "TEST": {
     "START": "Start Typing Test",
     "HINT": "Or click the text and start typing",
-    "RESTART": "Restart test",
-    "GO_AGAIN": "Go Again"
+    "RESTART": "Restart test"
   },
 
-  "COMPLETE": {
-    "TITLE": "Test Complete!",
-    "SUBTITLE": "Solid run. Keep pushing to beat your high score.",
-    "HIGH_SCORE_TITLE": "High Score Smashed!",
-    "HIGH_SCORE_SUBTITLE": "You’re getting faster. That was incredible typing.",
-    "BEAT_SCORE": "Beat This Score"
+  "RESULTS": {
+    "COMPLETE": {
+      "TITLE": "Test Complete!",
+      "SUBTITLE": "Solid run. Keep pushing to beat your high score."
+    },
+    "NEW_BEST": {
+      "TITLE": "High Score Smashed!",
+      "SUBTITLE": "You’re getting faster. That was incredible typing."
+    },
+    "FIRST_TEST": {
+      "TITLE": "Baseline Established!",
+      "SUBTITLE": "You’ve set the bar. Now the real challenge begins—time to beat it."
+    },
+    "BEAT_SCORE": "Beat This Score",
+    "GO_AGAIN": "Go Again"
   }
 }

@@ -1,0 +1,127 @@
+.content-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: var(--spacing-300);
+  gap: var(--spacing-400);
+}
+
+.completed {
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 0 16px var(--color-complete-shadow1), 0 0 0 32px var(--color-complete-shadow2);
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-125);
+  padding-top: var(--spacing-300);
+  text-align: center;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-250);
+  padding-top: var(--spacing-250);
+  padding-bottom: var(--spacing-400);
+  width: 100%;
+}
+
+.stats-cell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-150);
+  padding: var(--spacing-200) var(--spacing-300);
+  border: solid 1px var(--color-border-stats);
+  border-radius: var(--radius-8);
+  background-color: var(--color-bg-primary);
+  width: 160px;
+}
+
+.confetti-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1;
+
+  img {
+    width: 100%;
+  }
+}
+
+.red-star-container {
+  position: absolute;
+  left: var(--spacing-1400);
+  top: 251px;
+}
+
+.yellow-star-container {
+  position: absolute;
+  right: var(--spacing-1400);
+  top: 521px;
+}
+
+@media screen and (max-width: 992px) {
+  .stats-cell{
+    width: 100%;
+  }
+
+  .red-star-container {
+    left: var(--spacing-400);
+    top: 195px;
+  }
+
+  .yellow-star-container {
+    right: var(--spacing-400);
+    top: 550px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .content-container {
+    gap: var(--spacing-300);
+    padding-top: var(--spacing-200);
+  }
+
+  .result-icon {
+    width: 48px;
+  }
+
+  .completed {
+    border-radius: var(--radius-full);
+    box-shadow: 0 0 0 7.5px var(--color-complete-shadow1), 0 0 0 15px var(--color-complete-shadow2);
+  }
+
+  .message-container {
+    padding-top: var(--spacing-100);
+  }
+
+  .stats-row {
+    flex-direction: column;
+    gap: var(--spacing-200);
+    padding-bottom: var(--spacing-200);
+  }
+
+  .red-star-container {
+    left: var(--spacing-200);
+    top: 124px;
+
+    img {
+      width: 21px;
+    }
+  }
+
+  .yellow-star-container {
+    right: var(--spacing-400);
+    top: 675px;
+
+    img {
+      width: 39px;
+    }
+  }
+}

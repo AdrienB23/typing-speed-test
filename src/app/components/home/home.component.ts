@@ -17,38 +17,43 @@ import { SelectButton } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 import { DataTextService } from '../../shared/services/data-text.service';
 import { DataText } from '../../shared/models/data-text';
-import { Observable, Subject, takeUntil } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { Subject, takeUntil } from 'rxjs';
 import { HomeState } from '../../shared/models/enums/home-state.enum';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ScreenService } from '../../shared/services/screen.service';
 import { Select } from 'primeng/select';
 import { RadioButton } from 'primeng/radiobutton';
+import { ProgressSpinner } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-home',
   imports: [
     SelectButton,
     FormsModule,
-    AsyncPipe,
     TranslatePipe,
     Select,
-    RadioButton
+    RadioButton,
+    ProgressSpinner
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit, OnChanges, OnDestroy {
-  @Input() wpm: number = 0;
-  @Input() accuracy: number = 100;
-  @Input() time: number = 60;
+  @Input() wpm!: number;
+  @Input() accuracy!: number;
   @Input() homeState!: HomeState;
   @Input() lang!: 'en' | 'fr';
+  @Input() correctChars!: number;
+  @Input() wrongChars!: number;
   @Output() homeStateChange = new EventEmitter<HomeState>();
+  @Output() accuracyChange = new EventEmitter<number>();
+  @Output() correctCharsChange = new EventEmitter<number>();
+  @Output() wrongCharsChange = new EventEmitter<number>();
   @Output() testFinished = new EventEmitter<void>();
   @Output() personalBestChange = new EventEmitter<number>();
   @ViewChild('hiddenInput') hiddenInput!: ElementRef<HTMLInputElement>;
 
+  time: number = 60;
   difficultyOptions!: { label: string, value: string }[];
   modeOptions!: { label: string, value: string }[];
   selectedDifficulty: 'easy' | 'medium' | 'hard' = "easy";
@@ -56,12 +61,11 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   selectedTime = 60;
   screen = inject(ScreenService);
 
-  currentText$!: Observable<DataText>;
+  currentText: DataText | null = null;
   currentIndex = 0;
   textTyped = "";
   errorsTextTyped = "";
   wordCount = 0;
-  wrongChars = 0;
   startTime!: number;
   timerId: any = null;
   isTimerRunning = false;
@@ -99,11 +103,13 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     if (changes['homeState'] && changes['homeState'].currentValue === HomeState.NOT_STARTED) {
       this.stopTimer();
       this.textTyped = "";
+      this.errorsTextTyped = "";
       this.currentIndex = 0;
       this.wordCount = 0;
       this.time = this.selectedTime;
       this.wpm = 0;
       this.accuracy = 0;
+      this.correctChars = 0;
       this.loadText();
     }
   }
@@ -113,7 +119,9 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   loadText() {
-    this.currentText$ = this.dataTextService.getRandomText(this.selectedDifficulty);
+    this.dataTextService.getRandomText(this.selectedDifficulty).subscribe(text => {
+      this.currentText = text;
+    });
   }
 
   getWords(text: string) {
@@ -241,8 +249,23 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
 
   finishTest() {
     this.stopTimer();
+    this.updateCorrectChars();
+    this.accuracyChange.emit(this.accuracy);
+    this.wrongCharsChange.emit(this.wrongChars);
     this.testFinished.emit();
     this.personalBestChange.emit(this.wpm);
+  }
+
+  updateCorrectChars() {
+    if (!this.currentText) return;
+
+    this.correctChars = 0;
+    for (let i = 0; i < this.errorsTextTyped.length; i++) {
+      if (this.isCorrect(this.currentText.text[i], this.errorsTextTyped[i])) {
+        this.correctChars++;
+      }
+    }
+    this.correctCharsChange.emit(this.correctChars);
   }
 
   updateWrongChars(currentText: DataText) {

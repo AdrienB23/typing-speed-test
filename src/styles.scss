@@ -94,6 +94,18 @@ html {
   color: var(--color-text-secondary);
 }
 
+.correct {
+  color: var(--color-text-correct);
+}
+
+.incorrect {
+  color: var(--color-text-incorrect);
+}
+
+.running {
+  color: var(--color-text-running);
+}
+
 /* =====================
         BUTTONS
 ===================== */

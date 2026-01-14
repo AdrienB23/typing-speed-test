@@ -8,6 +8,7 @@ import { AppView } from './shared/models/enums/app-view.enum';
 import { ResultsComponent } from './components/results/results.component';
 import { TranslateService } from '@ngx-translate/core';
 import { PersonalBestService } from './shared/services/personal-best.service';
+import { ResultState } from './shared/models/result-state.enum';
 
 @Component({
   selector: 'app-root',
@@ -22,8 +23,13 @@ import { PersonalBestService } from './shared/services/personal-best.service';
 })
 export class App implements OnInit {
   protected readonly title = signal('typing-speed-test');
+  wpm: number = 0;
+  accuracy: number = 100;
+  correctChar = 0;
+  wrongChars = 0;
   personalBest: number | null = null;
   homeState = HomeState.NOT_STARTED;
+  resultState = ResultState.DEFAULT;
   appView = AppView.HOME;
   lang: 'en' | 'fr' = 'en';
 
@@ -50,7 +56,19 @@ export class App implements OnInit {
     if (personalBest == null || personalBest < wpm) {
       this.personalBestService.set(wpm);
       this.personalBest = wpm;
+      this.resultState = personalBest == null ? ResultState.FIRST_TEST : ResultState.NEW_BEST;
+    } else {
+      this.resultState = ResultState.DEFAULT;
     }
+  }
+
+  restartTest() {
+    this.wpm = 0;
+    this.accuracy = 100;
+    this.homeState = HomeState.NOT_STARTED;
+    this.appView = AppView.HOME;
+    this.correctChar = 0;
+    this.wrongChars = 0;
   }
 
   changeLang(lang: 'en' | 'fr') {
