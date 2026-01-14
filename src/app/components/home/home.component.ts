@@ -62,6 +62,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   selectedMode: 'time' | 'passage' = "time";
   selectedTime = 60;
   screen = inject(ScreenService);
+  skipChars = ["—"];
 
   currentText: DataText | null = null;
   currentIndex = 0;
@@ -214,6 +215,13 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
       this.errorsTextTyped += typedChar;
     }
     this.currentIndex++;
+
+    const currentChar = currentText.text[this.currentIndex];
+    if (this.skipChars.includes(currentChar)) {
+      this.textTyped += currentChar;
+      this.errorsTextTyped += currentChar;
+      this.currentIndex++;
+    }
 
     if (this.textTyped.length === currentText.text.length) {
       this.finishTest();
