@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   @Input() correctChars!: number;
   @Input() wrongChars!: number;
   @Output() homeStateChange = new EventEmitter<HomeState>();
+  @Output() wpmChange = new EventEmitter<number>();
   @Output() accuracyChange = new EventEmitter<number>();
   @Output() correctCharsChange = new EventEmitter<number>();
   @Output() wrongCharsChange = new EventEmitter<number>();
@@ -56,6 +57,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   time: number = 60;
   difficultyOptions!: { label: string, value: string }[];
   modeOptions!: { label: string, value: string }[];
+  timeOptions!: { label: string, value: number }[];
   selectedDifficulty: 'easy' | 'medium' | 'hard' = "easy";
   selectedMode: 'time' | 'passage' = "time";
   selectedTime = 60;
@@ -91,6 +93,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     this.loadText();
     this.buildDifficultyOptions();
     this.buildModeOptions();
+    this.buildTimeOptions();
     this.translate.onLangChange
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
@@ -161,6 +164,10 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
 
     this.startTime = Date.now();
     this.wordCount = 0;
+  }
+
+  onTimeChange() {
+    this.time = this.selectedTime;
   }
 
   onKeyPress(event: KeyboardEvent, currentText: DataText) {
@@ -251,6 +258,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   finishTest() {
     this.stopTimer();
     this.updateCorrectChars();
+    this.wpmChange.emit(this.wpm);
     this.accuracyChange.emit(this.accuracy);
     this.wrongCharsChange.emit(this.wrongChars);
     this.testFinished.emit();
@@ -322,9 +330,18 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
       .get(['MODE.TIMED', 'MODE.PASSAGE'])
       .subscribe(t => {
         this.modeOptions = [
-          { label: t['MODE.TIMED'] + ' (' + this.selectedTime + 's)', value: 'time' },
+          { label: t['MODE.TIMED'], value: 'time' },
           { label: t['MODE.PASSAGE'], value: 'passage' },
         ];
       });
+  }
+
+  private buildTimeOptions() {
+    this.timeOptions = [
+      { label: '15s', value: 15 },
+      { label: '30s', value: 30 },
+      { label: '60s', value: 60 },
+      { label: '120s', value: 120 },
+    ];
   }
 }

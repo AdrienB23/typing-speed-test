@@ -2,7 +2,7 @@
   <img [src]="'assets/images/icon-' + (resultState === ResultState.NEW_BEST ? 'new-pb' : 'completed') + '.svg'"
        [class.completed]="resultState !== ResultState.NEW_BEST"
        [alt]="resultState === ResultState.NEW_BEST ? 'Party icon' : 'Completed icon'" class="result-icon"/>
-  <div class="message-container">
+  <div class="message-container center">
     <p class="text-1 primary b" [class.mobile]="screen.isMobile()">{{ 'RESULTS.' + resultState + '.TITLE' | translate }}</p>
     <p [class]="{
       'text-3': !screen.isMobile(),

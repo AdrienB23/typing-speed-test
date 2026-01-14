@@ -1,7 +1,7 @@
 <main>
   <app-header [personalBest]="personalBest" [lang]="lang" (onLangChange)="changeLang($event)" ></app-header>
   @if (appView === AppView.HOME) {
-    <app-home [(homeState)]="homeState" [wpm]="wpm" [(accuracy)]="accuracy" [lang]="lang" [(correctChars)]="correctChar" [(wrongChars)]="wrongChars" (testFinished)="onTestFinished()" (personalBestChange)="onPersonalBestChange($event)" ></app-home>
+    <app-home [(homeState)]="homeState" [(wpm)]="wpm" [(accuracy)]="accuracy" [lang]="lang" [(correctChars)]="correctChar" [(wrongChars)]="wrongChars" (testFinished)="onTestFinished()" (personalBestChange)="onPersonalBestChange($event)" ></app-home>
   } @else {
     <app-results [resultState]="resultState" [wpm]="wpm" [accuracy]="accuracy" [correctChars]="correctChar" [wrongChars]="wrongChars" (restartTest)="restartTest()" ></app-results>
   }

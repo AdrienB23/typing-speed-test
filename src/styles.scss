@@ -85,6 +85,11 @@ html {
   font-weight: $regular;
 }
 
+/* Align */
+.center {
+  text-align: center;
+}
+
 /* Colors */
 .primary {
   color: var(--color-text-primary);
@@ -189,6 +194,7 @@ button:focus, .p-radiobutton:focus {
 
 .p-select {
   padding: var(--spacing-75) var(--spacing-125);
+  min-width: 80px;
 }
 
 .p-select-overlay  {
