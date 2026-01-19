@@ -2,13 +2,16 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-400);
+  height: 100%;
 }
 
 .stats-container {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  gap: var(--spacing-200);
   padding-bottom: var(--spacing-200);
 }
 
@@ -16,6 +19,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  overflow: hidden;
 }
 
 .stats-row, .settings-container {
@@ -75,12 +80,14 @@
 
 .text-row {
   position: relative;
+  height: 100%;
 }
 
 .text-box {
-  width: 100%;
-  min-height: 100%;
   position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .typing-test {
@@ -121,6 +128,8 @@ mark {
 
 .hidden-input {
   position: absolute;
+  top: 0;
+  left: 0;
   opacity: 0;
   pointer-events: none;
 }

@@ -1,11 +1,22 @@
 <main>
   <app-header [personalBest]="personalBest" [lang]="lang" (onLangChange)="changeLang($event)" ></app-header>
-  @if (appView === AppView.HOME) {
-    <app-home [(homeState)]="homeState" [(wpm)]="wpm" [(accuracy)]="accuracy" [lang]="lang" [(correctChars)]="correctChar" [(wrongChars)]="wrongChars" (testFinished)="onTestFinished()" (personalBestChange)="onPersonalBestChange($event)" ></app-home>
-  } @else {
-    <app-results [resultState]="resultState" [wpm]="wpm" [accuracy]="accuracy" [correctChars]="correctChar" [wrongChars]="wrongChars" (restartTest)="restartTest()" ></app-results>
-  }
+  <div class="content">
+    @if (appView === AppView.HOME) {
+      <app-home [(homeState)]="homeState" [(wpm)]="wpm" [(accuracy)]="accuracy" [lang]="lang" [(correctChars)]="correctChar" [(wrongChars)]="wrongChars" (testFinished)="onTestFinished()" (personalBestChange)="onPersonalBestChange($event)" ></app-home>
+    } @else {
+      <app-results [resultState]="resultState" [wpm]="wpm" [accuracy]="accuracy" [correctChars]="correctChar" [wrongChars]="wrongChars" (restartTest)="restartTest()" ></app-results>
+    }
+  </div>
   @if (appView === AppView.HOME && homeState === HomeState.STARTED) {
     <app-footer [(homeState)]="homeState" ></app-footer>
   }
+<!--  <div class="header">-->
+
+<!--  </div>-->
+<!--  <div class="content">-->
+<!--    <p class="text"></p>-->
+<!--  </div>-->
+<!--  <div class="footer">-->
+
+<!--  </div>-->
 </main>

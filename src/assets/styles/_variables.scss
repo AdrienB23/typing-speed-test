@@ -107,6 +107,10 @@ $radius-full: 999px;
 
   --color-spinner: #{map.get($neutral-palette, 0)};
 
+  --color-scrollbar-bg: #{map.get($neutral-palette, 700)};
+  --color-scrollbar-thumb: #{map.get($blue-palette, 600)};
+  --color-scrollbar-thumb-hover: #{map.get($blue-palette, 400)};
+
   --spacing-0: #{$spacing-0};
   --spacing-25: #{$spacing-25};
   --spacing-50: #{$spacing-50};

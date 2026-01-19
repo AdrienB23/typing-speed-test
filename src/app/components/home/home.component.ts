@@ -53,12 +53,14 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   @Output() testFinished = new EventEmitter<void>();
   @Output() personalBestChange = new EventEmitter<number>();
   @ViewChild('hiddenInput') hiddenInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('textBox') textBox!: ElementRef<HTMLDivElement>;
+  @ViewChild('currentSpan') charSpan!: ElementRef<HTMLSpanElement>;
 
   time: number = 60;
   difficultyOptions!: { label: string, value: string }[];
   modeOptions!: { label: string, value: string }[];
   timeOptions!: { label: string, value: number }[];
-  selectedDifficulty: 'easy' | 'medium' | 'hard' = "easy";
+  selectedDifficulty!: 'easy' | 'medium' | 'hard';
   selectedMode: 'time' | 'passage' = "time";
   selectedTime = 60;
   screen = inject(ScreenService);
@@ -180,6 +182,21 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     this.startTime = Date.now();
   }
 
+  scrollToActiveChar(): void {
+    const charEl = this.charSpan.nativeElement;
+    const container = this.textBox.nativeElement;
+
+    const charTop = charEl.offsetTop;
+    const charBottom = charTop + charEl.offsetHeight;
+
+    const containerScrollTop = container.scrollTop;
+    const containerHeight = container.clientHeight;
+
+    if (charTop < containerScrollTop || charBottom > containerScrollTop + containerHeight) {
+      container.scrollTo({ top: charTop - containerHeight / 2, behavior: 'smooth' });
+    }
+  }
+
   onKeyPress(event: KeyboardEvent, currentText: DataText) {
     if (this.homeState === HomeState.NOT_STARTED) return;
 
@@ -213,6 +230,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
       this.typedHistory += currentChar;
       this.currentIndex++;
     }
+    this.scrollToActiveChar();
 
     if (this.textTyped.length === currentText.text.length) {
       this.finishTest();
@@ -297,15 +315,31 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   updateWpm() {
+    if (!this.currentText) return;
+
     const elapsedMinutes = (Date.now() - this.startTime) / 60000;
+    if (elapsedMinutes <= 0) return;
 
-    if (elapsedMinutes === 0) return;
+    const correctWords = this.countCorrectWords(this.currentText.text, this.typedHistory.trim());
 
-    const hasStartedTyping = this.typedHistory.trim().length > 0;
-    const words = this.typedHistory.trim().split(/\s+/).length;
-    const totalWords = words + (hasStartedTyping ? 1 : 0);
+    this.wpm = Math.round(correctWords / elapsedMinutes);
+  }
 
-    this.wpm = Math.round(totalWords / elapsedMinutes);
+  countCorrectWords(text: string, typed: string): number {
+    const originalWords = text.split(' ');
+    const typedWords = typed.split(' ');
+
+    let correctWords = 0;
+
+    for (let i = 0; i < typedWords.length; i++) {
+      if (!originalWords[i]) break;
+
+      if (typedWords[i] === originalWords[i]) {
+        correctWords++;
+      }
+    }
+
+    return correctWords;
   }
 
   private recomputeStats(currentText: DataText) {

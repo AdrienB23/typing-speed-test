@@ -159,6 +159,34 @@ button:focus, .p-radiobutton:focus {
   gap: var(--spacing-125);
 }
 
+/* Scrollbar */
+.scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background: var(--color-scrollbar-bg);
+  border-radius: 4px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-scrollbar-thumb);
+  border-radius: 4px;
+  border: none;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scrollbar-thumb-hover);
+}
+
+@-moz-document url-prefix() {
+  .scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-bg);
+  }
+}
+
 /* =====================
   PRIME NG OVERRIDES
 ===================== */
