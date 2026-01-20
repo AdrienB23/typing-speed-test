@@ -319,27 +319,14 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
 
     const elapsedMinutes = (Date.now() - this.startTime) / 60000;
     if (elapsedMinutes <= 0) return;
-
-    const correctWords = this.countCorrectWords(this.currentText.text, this.typedHistory.trim());
-
-    this.wpm = Math.round(correctWords / elapsedMinutes);
-  }
-
-  countCorrectWords(text: string, typed: string): number {
-    const originalWords = text.split(' ');
-    const typedWords = typed.split(' ');
-
-    let correctWords = 0;
-
-    for (let i = 0; i < typedWords.length; i++) {
-      if (!originalWords[i]) break;
-
-      if (typedWords[i] === originalWords[i]) {
-        correctWords++;
+    let correctChars = 0;
+    for (let i = 0; i < this.textTyped.length; i++) {
+      if (this.isCorrect(this.currentText.text[i], this.textTyped[i])) {
+        correctChars ++;
       }
     }
 
-    return correctWords;
+    this.wpm = Math.round((correctChars/5) / elapsedMinutes);
   }
 
   private recomputeStats(currentText: DataText) {
