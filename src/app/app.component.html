@@ -1,6 +1,6 @@
 <main>
   <app-header [personalBest]="personalBest" [lang]="lang" (onLangChange)="changeLang($event)" ></app-header>
-  <div class="content">
+  <div class="content" [class.overflow]="appView === AppView.HOME">
     @if (appView === AppView.HOME) {
       <app-home [(homeState)]="homeState" [(wpm)]="wpm" [(accuracy)]="accuracy" [lang]="lang" [(correctChars)]="correctChar" [(wrongChars)]="wrongChars" (testFinished)="onTestFinished()" (personalBestChange)="onPersonalBestChange($event)" ></app-home>
     } @else {
