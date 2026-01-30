@@ -75,12 +75,15 @@ $radius-full: 999px;
    ============================================================ */
 
   --color-bg-primary: #{map.get($neutral-palette, 900)};
+  --color-bg-secondary: #{map.get($neutral-palette, 800)};
   --color-bg-primary-button: #{map.get($blue-palette, 600)};
   --color-bg-primary-button-hover: #{map.get($blue-palette, 400)};
   --color-bg-secondary-button: #{map.get($neutral-palette, 0)};
   --color-bg-contrast-button: #{map.get($neutral-palette, 800)};
   --color-bg-checked-radio-button: #{map.get($blue-palette, 400)};
+  --color-bg-keyboard-button: #{map.get($neutral-palette, 700)};
   --color-bg-overlay: #{map.get($neutral-palette, 800)};
+  --color-bg-mask: #{rgba(map.get($neutral-palette, 900), 0.5)};
 
   --color-text-primary: #{map.get($neutral-palette, 0)};
   --color-text-secondary: #{map.get($neutral-palette, 400)};
@@ -143,9 +146,16 @@ $radius-full: 999px;
   --radius-full: #{$radius-full};
 
   /* ============================================================
-   SECTION : SELECT BUTTON
+   SECTION : BUTTON ICON
    ============================================================ */
+  --p-button-padding-x: var(--spacing-200);
+  --p-button-padding-y: var(--spacing-100);
+  --p-button-text-secondary-hover-background: var(--color-bg-contrast-button);
+  --p-button-icon-only-width: var(--spacing-500);
 
+    /* ============================================================
+     SECTION : SELECT BUTTON
+     ============================================================ */
   --p-selectbutton-border-radius: var(--radius-8);
 
   /* ============================================================
@@ -222,4 +232,16 @@ $radius-full: 999px;
   --p-progressspinner-color-two: var(--color-spinner);
   --p-progressspinner-color-three: var(--color-spinner);
   --p-progressspinner-color-four: var(--color-spinner);
+
+  /* ============================================================
+   SECTION : DIALOG
+   ============================================================ */
+  --p-dialog-background: var(--color-bg-primary);
+  --p-dialog-border-color: var(--color-border-stats);
+  --p-dialog-color: var(--color-text-primary);
+  --p-dialog-border-radius: var(--radius-8);
+  --p-dialog-header-padding: var(--spacing-200);
+  --p-dialog-header-gap: var(--spacing-50);
+  --p-dialog-content-padding: var(--spacing-200);
+  --p-mask-background: var(--color-bg-mask);
 }

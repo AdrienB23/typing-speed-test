@@ -121,7 +121,7 @@ button {
   cursor: pointer;
 }
 
-button:focus, .p-radiobutton:focus {
+button:focus:not(.p-button), .p-radiobutton:focus {
   outline: solid 2px var(--color-outline-button-focus);
   outline-offset: var(--spacing-25);
 }
@@ -231,4 +231,8 @@ button:focus, .p-radiobutton:focus {
 
 p-selectitem:not(:last-child) .p-select-option {
   border-bottom: solid 1px var(--color-divider);
+}
+
+.p-dialog-header {
+  gap: var(--spacing-200);
 }
