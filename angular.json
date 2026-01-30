@@ -43,7 +43,9 @@
             ],
             "styles": [
               "src/styles.scss"
-            ]
+            ],
+            "outputPath": "dist/typing-speed-test",
+            "baseHref": "/typing-speed-test/"
           },
           "configurations": {
             "production": {
@@ -83,6 +85,9 @@
         },
         "test": {
           "builder": "@angular/build:unit-test"
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
