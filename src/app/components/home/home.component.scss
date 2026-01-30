@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: var(--spacing-400);
   height: 100%;
+  margin-top: 4px;
 }
 
 .stats-container {
@@ -152,6 +153,13 @@ mark {
 }
 
 @media screen and (max-width: 992px) {
+  .stats-row {
+    height: fit-content;
+  }
+
+  .settings-container {
+    height: fit-content;
+  }
   .stats-container {
     flex-direction: column;
     align-items: flex-start;

@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   difficultyOptions!: { label: string, value: string }[];
   modeOptions!: { label: string, value: string }[];
   timeOptions!: { label: string, value: number }[];
-  selectedDifficulty!: 'easy' | 'medium' | 'hard';
+  selectedDifficulty: 'easy' | 'medium' | 'hard' = 'easy';
   selectedMode: 'time' | 'passage' = "time";
   selectedTime = 60;
   skipChars = ["—"];

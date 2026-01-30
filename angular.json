@@ -35,16 +35,16 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              },
               "src/assets"
             ],
             "styles": [
               "src/styles.scss",
               "node_modules/simple-keyboard/build/css/index.css"
             ]
+              "src/styles.scss"
+            ],
+            "outputPath": "dist/typing-speed-test",
+            "baseHref": "/typing-speed-test/"
           },
           "configurations": {
             "production": {
@@ -84,6 +84,9 @@
         },
         "test": {
           "builder": "@angular/build:unit-test"
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
