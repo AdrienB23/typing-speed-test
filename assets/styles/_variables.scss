@@ -1,0 +1,225 @@
+@use "sass:map";
+@use 'sass:color';
+
+// =========================
+//           FONT
+// =========================
+
+$font-primary: 'Sora', sans-serif;
+$bold: 700;
+$semi-bold: 600;
+$regular: 400;
+
+// =========================
+//        COLORS
+// =========================
+
+$yellow: #F4DC73;
+$green: #4DD67B;
+$red: #D64D5B;
+$neutral-palette: (
+  0: #FFFFFF,
+  400: #949497,
+  500: #717178,
+  700: #3A3A3A,
+  800: #262626,
+  900: #121212
+);
+$blue-palette: (
+  400: #4CA6FF,
+  600: #177DFF,
+);
+
+// =========================
+//        SPACING
+// =========================
+
+$spacing-0: 0;
+$spacing-25: 2px;
+$spacing-50: 4px;
+$spacing-75: 6px;
+$spacing-100: 8px;
+$spacing-125: 10px;
+$spacing-150: 12px;
+$spacing-200: 16px;
+$spacing-250: 20px;
+$spacing-300: 24px;
+$spacing-400: 32px;
+$spacing-500: 40px;
+$spacing-600: 48px;
+$spacing-800: 64px;
+$spacing-1000: 80px;
+$spacing-1200: 96px;
+$spacing-1400: 112px;
+$spacing-1600: 128px;
+$spacing-1800: 140px;
+
+// =========================
+//      BORDER RADIUS
+// =========================
+
+$radius-0: 0;
+$radius-4: 4px;
+$radius-6: 6px;
+$radius-8: 8px;
+$radius-10: 10px;
+$radius-12: 12px;
+$radius-16: 16px;
+$radius-20: 20px;
+$radius-24: 24px;
+$radius-full: 999px;
+
+:root {
+  /* ============================================================
+   SECTION : GLOBAL
+   ============================================================ */
+
+  --color-bg-primary: #{map.get($neutral-palette, 900)};
+  --color-bg-primary-button: #{map.get($blue-palette, 600)};
+  --color-bg-primary-button-hover: #{map.get($blue-palette, 400)};
+  --color-bg-secondary-button: #{map.get($neutral-palette, 0)};
+  --color-bg-contrast-button: #{map.get($neutral-palette, 800)};
+  --color-bg-checked-radio-button: #{map.get($blue-palette, 400)};
+  --color-bg-overlay: #{map.get($neutral-palette, 800)};
+
+  --color-text-primary: #{map.get($neutral-palette, 0)};
+  --color-text-secondary: #{map.get($neutral-palette, 400)};
+  --color-text-selected: #{map.get($blue-palette, 400)};
+  --color-text-secondary-button: #{map.get($neutral-palette, 900)};
+  --color-text-contrast-button: var(--color-text-primary);
+  --color-text-correct: #{$green};
+  --color-text-incorrect: #{$red};
+  --color-text-running: #{$yellow};
+
+  --color-border-button-selected: #{map.get($blue-palette, 400)};
+  --color-border-button-focus: #{map.get($neutral-palette, 0)};
+  --color-border-button: #{map.get($neutral-palette, 500)};
+  --color-border-stats: #{map.get($neutral-palette, 700)};
+
+  --color-outline-button-focus: #{map.get($blue-palette, 400)};
+
+  --color-divider: #{map.get($neutral-palette, 700)};
+
+  --color-highlight: #{rgba(map.get($neutral-palette, 0), 0.2)};
+
+  --color-complete-shadow1: #{rgba($green, 0.2)};
+  --color-complete-shadow2: #{rgba($green, 0.1)};
+
+  --color-spinner: #{map.get($neutral-palette, 0)};
+
+  --color-scrollbar-bg: #{map.get($neutral-palette, 700)};
+  --color-scrollbar-thumb: #{map.get($blue-palette, 600)};
+  --color-scrollbar-thumb-hover: #{map.get($blue-palette, 400)};
+
+  --spacing-0: #{$spacing-0};
+  --spacing-25: #{$spacing-25};
+  --spacing-50: #{$spacing-50};
+  --spacing-75: #{$spacing-75};
+  --spacing-100: #{$spacing-100};
+  --spacing-125: #{$spacing-125};
+  --spacing-150: #{$spacing-150};
+  --spacing-200: #{$spacing-200};
+  --spacing-250: #{$spacing-250};
+  --spacing-300: #{$spacing-300};
+  --spacing-400: #{$spacing-400};
+  --spacing-500: #{$spacing-500};
+  --spacing-600: #{$spacing-600};
+  --spacing-800: #{$spacing-800};
+  --spacing-1000: #{$spacing-1000};
+  --spacing-1200: #{$spacing-1200};
+  --spacing-1400: #{$spacing-1400};
+  --spacing-1600: #{$spacing-1600};
+  --spacing-1800: #{$spacing-1800};
+
+  --radius-0: #{$radius-0};
+  --radius-4: #{$radius-4};
+  --radius-6: #{$radius-6};
+  --radius-8: #{$radius-8};
+  --radius-10: #{$radius-10};
+  --radius-12: #{$radius-12};
+  --radius-16: #{$radius-16};
+  --radius-20: #{$radius-20};
+  --radius-24: #{$radius-24};
+  --radius-full: #{$radius-full};
+
+  /* ============================================================
+   SECTION : SELECT BUTTON
+   ============================================================ */
+
+  --p-selectbutton-border-radius: var(--radius-8);
+
+  /* ============================================================
+   SECTION : TOGGLE BUTTON
+   ============================================================ */
+  --p-togglebutton-color: var(--color-text-primary);
+  --p-togglebutton-padding: var(--spacing-75) var(--spacing-125);
+  --p-togglebutton-border-radius: var(--radius-8);
+  --p-togglebutton-border-color: var(--color-border-button);
+  --p-togglebutton-checked-color: var(--color-text-selected);
+  --p-togglebutton-checked-border-color: var(--color-border-button-selected);
+
+  /* ============================================================
+   SECTION : TOGGLE SWITCH
+   ============================================================ */
+  --p-toggleswitch-width: 50px;
+  --p-toggleswitch-height: 24px;
+  --p-toggleswitch-border-radius: var(--radius-full);
+  --p-toggleswitch-border-width: 0;
+  --p-toggleswitch-gap: var(--spacing-100);
+  --p-toggleswitch-background: var(--color-bg-contrast-button);
+  --p-toggleswitch-hover-background: var(--color-bg-contrast-button);
+  --p-toggleswitch-checked-background: var(--color-bg-contrast-button);
+  --p-toggleswitch-checked-hover-background: var(--color-bg-contrast-button);
+  --p-toggleswitch-handle-border-radius: var(--radius-full);
+  --p-toggleswitch-handle-size: 16px;
+  --p-toggleswitch-handle-background: var(--color-bg-secondary-button);
+  --p-toggleswitch-handle-hover-background: var(--color-bg-secondary-button);
+  --p-toggleswitch-handle-checked-hover-background: var(--color-bg-secondary-button);
+  --p-toggleswitch-handle-checked-background: var(--color-bg-secondary-button);
+  --p-toggleswitch-handle-color: var(--color-bg-secondary-button);
+  --p-toggleswitch-handle-hover-color: var(--color-bg-secondary-button);
+  --p-toggleswitch-handle-checked-color: var(--color-bg-secondary-button);
+  --p-toggleswitch-handle-checked-hover-color: var(--color-bg-secondary-button);
+
+    /* ============================================================
+     SECTION : RADIO BUTTON
+     ============================================================ */
+  --p-radiobutton-width: 16px;
+  --p-radiobutton-height: 16px;
+  --p-radiobutton-icon-size: 6px;
+  --p-radiobutton-background: var(--color-bg-contrast-button);
+  --p-radiobutton-border-color: var(--color-border-button);
+
+  --p-radiobutton-hover-border-color: var(--color-border-button);
+
+  --p-radiobutton-checked-background: var(--color-bg-checked-radio-button);
+  --p-radiobutton-icon-checked-color: var(--color-bg-primary);
+  --p-radiobutton-checked-hover-background: var(--color-bg-checked-radio-button);
+  --p-radiobutton-icon-checked-hover-color: var(--color-bg-primary);
+
+  /* ============================================================
+   SECTION : SELECT
+   ============================================================ */
+  --p-select-border-color: var(--color-border-button);
+  --p-select-hover-border-color: var(--color-border-button);
+  --p-select-focus-border-color: var(--color-border-button);
+  --p-select-color: var(--color-text-primary);
+  --p-select-border-radius: var(--radius-8);
+
+  --p-select-overlay-background: var(--color-bg-overlay);
+  --p-select-overlay-border-radius: var(--radius-8);
+  --p-select-overlay-color: var(--color-text-primary);
+
+  --p-select-list-padding: var(--spacing-25) 0;
+  --p-select-list-gap: var(--spacing-0);
+
+  --p-select-option-padding: var(--spacing-100) var(--spacing-125);
+
+  /* ============================================================
+   SECTION : PROGRESS SPINNER
+   ============================================================ */
+  --p-progressspinner-color-one: var(--color-spinner);
+  --p-progressspinner-color-two: var(--color-spinner);
+  --p-progressspinner-color-three: var(--color-spinner);
+  --p-progressspinner-color-four: var(--color-spinner);
+}

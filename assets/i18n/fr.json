@@ -1,0 +1,47 @@
+{
+  "PERSONAL_BEST": "Meilleur score",
+  "BEST": "Record",
+
+  "STATS": {
+    "WPM": "MPM",
+    "ACCURACY": "Précision",
+    "TIME": "Temps",
+    "CHARACTERS": "Caractères"
+  },
+
+  "DIFFICULTY": {
+    "LABEL": "Difficulté",
+    "EASY": "Facile",
+    "MEDIUM": "Moyen",
+    "HARD": "Difficile"
+  },
+
+  "MODE": {
+    "LABEL": "Mode",
+    "TIMED": "Chronométré",
+    "PASSAGE": "Texte"
+  },
+
+  "TEST": {
+    "START": "Démarrer le test de frappe",
+    "HINT": "Ou cliquez sur le texte et commencez à taper",
+    "RESTART": "Redémarrer le test"
+  },
+
+  "RESULTS": {
+    "COMPLETE": {
+      "TITLE": "Test terminé !",
+      "SUBTITLE": "Belle performance. Continue pour battre ton record."
+    },
+    "NEW_BEST": {
+      "TITLE": "Record battu !",
+      "SUBTITLE": "Tu tapes de plus en plus vite. C’était une frappe impressionnante."
+    },
+    "FIRST_TEST": {
+      "TITLE": "Référence établie !",
+      "SUBTITLE": "Tu as posé les bases. Le vrai défi commence maintenant : bats ce score."
+    },
+    "BEAT_SCORE": "Bats ce score",
+    "GO_AGAIN": "Recommencer"
+  }
+}
