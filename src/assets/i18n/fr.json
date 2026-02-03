@@ -42,6 +42,13 @@
       "SUBTITLE": "Tu as posé les bases. Le vrai défi commence maintenant : bats ce score."
     },
     "BEAT_SCORE": "Bats ce score",
-    "GO_AGAIN": "Recommencer"
+    "GO_AGAIN": "Recommencer",
+    "HEATMAP": {
+      "KEYBOARD": "Carte thermique du clavier",
+      "ERROR": "Erreurs",
+      "FREQUENCY": "Fréquence",
+      "ERRORS_PER_KEY": "Erreurs par touche",
+      "KEYSTROKES_PER_KEY": "Nombre de frappes par touche"
+    }
   }
 }
