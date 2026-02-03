@@ -8,7 +8,7 @@
                 (keyStatsChange)="onKeyStatsChange($event)"></app-home>
     } @else {
       <app-results [keyStats]="keyStats" [resultState]="resultState" [wpm]="wpm" [accuracy]="accuracy"
-                   [correctChars]="correctChar" [wrongChars]="wrongChars" (restartTest)="restartTest()"></app-results>
+                   [correctChars]="correctChar" [wrongChars]="wrongChars" [lang]="lang" (restartTest)="restartTest()"></app-results>
     }
   </div>
   @if (appView === AppView.HOME && homeState === HomeState.STARTED) {

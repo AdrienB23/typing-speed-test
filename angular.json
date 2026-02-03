@@ -40,8 +40,6 @@
             "styles": [
               "src/styles.scss",
               "node_modules/simple-keyboard/build/css/index.css"
-            ]
-              "src/styles.scss"
             ],
             "outputPath": "dist/typing-speed-test",
             "baseHref": "/typing-speed-test/"

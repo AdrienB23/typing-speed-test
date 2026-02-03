@@ -28,7 +28,7 @@
     </div>
   </div>
   <div class="buttons-container">
-    <button class="button-secondary contrast text-3 sb" (click)="showHeatmap()">{{ 'RESULTS.KEYBOARD' | translate }}
+    <button class="button-secondary contrast text-3 sb" (click)="showHeatmap()">{{ 'RESULTS.HEATMAP.KEYBOARD' | translate }}
     </button>
     <button class="button-secondary button-icon" (click)="restart()">
     <span class="text-3 sb">
@@ -40,9 +40,9 @@
 </div>
 <p-dialog [modal]="true" [maximizable]="true" [(visible)]="heatmapVisible">
   <ng-template #header>
-    <p class="text-2 primary b">{{ 'RESULTS.KEYBOARD' | translate }}</p>
+    <p class="text-2 primary b">{{ 'RESULTS.HEATMAP.KEYBOARD' | translate }}</p>
   </ng-template>
-  <app-results-keyboard-heatmap [keyStats]="keyStats" />
+  <app-results-keyboard-heatmap [keyStats]="keyStats" [lang]="lang"/>
 </p-dialog>
 @if (resultState === ResultState.NEW_BEST) {
   <div class="confetti-container">

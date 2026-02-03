@@ -23,6 +23,7 @@ export class ResultsComponent {
   @Input() correctChars!: number;
   @Input() wrongChars!: number;
   @Input() keyStats!: Record<string, KeyStats>;
+  @Input() lang: 'en' | 'fr' = 'en';
   @Output() restartTest = new EventEmitter<void>();
 
   heatmapVisible = false;

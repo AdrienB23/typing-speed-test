@@ -43,6 +43,12 @@
     },
     "BEAT_SCORE": "Beat This Score",
     "GO_AGAIN": "Go Again",
-    "KEYBOARD": "Keyboard Heatmap"
+    "HEATMAP": {
+      "KEYBOARD": "Keyboard Heatmap",
+      "ERROR": "Errors",
+      "FREQUENCY": "Frequency",
+      "ERRORS_PER_KEY": "Errors per key",
+      "KEYSTROKES_PER_KEY": "Keystrokes per key"
+    }
   }
 }

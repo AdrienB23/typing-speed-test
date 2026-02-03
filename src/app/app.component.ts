@@ -31,7 +31,7 @@ export class App implements OnInit {
   personalBest: number | null = null;
   homeState = HomeState.NOT_STARTED;
   resultState = ResultState.DEFAULT;
-  appView = AppView.RESULTS;
+  appView = AppView.HOME;
   lang: 'en' | 'fr' = 'en';
   keyStats!: Record<string, KeyStats>;
 

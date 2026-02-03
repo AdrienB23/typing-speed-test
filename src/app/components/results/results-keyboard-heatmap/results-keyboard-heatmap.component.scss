@@ -1,11 +1,61 @@
-.keyboard-container {
+.content-container {
   display: flex;
   flex-direction: column;
   width: 100%;
+  gap: var(--spacing-400);
+}
+
+.keyboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
 }
 
 .simple-keyboard {
   width: 100%;
+}
+
+.legend-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-50);
+}
+
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-100);
+}
+
+.legend {
+  width: 30px;
+  height: 10px;
+}
+
+.error-low {
+  background-color: rgba(255, 77, 79, 0.4);
+}
+
+.error-medium {
+  background-color: rgba(255, 77, 79, 0.7);
+}
+
+.error-high {
+  background-color: rgba(255, 77, 79, 1);
+}
+
+.key-low {
+  background-color: #e6f4ff !important;
+  color: var(--color-text-secondary-button);
+}
+
+.key-medium {
+  background-color: #91caff;
+  color: var(--color-text-secondary-button);
+}
+
+.key-high {
+  background-color: #1677ff;
 }
 
 :host ::ng-deep .simple-keyboard {
@@ -15,27 +65,30 @@
     background-color: var(--color-bg-keyboard-button);
     border: none;
   }
-}
 
-//.simple-keyboard.myTheme1 {
-//  background-color: rgba(0, 0, 0, 0.8);
-//  border-radius: 0 0 5px 5px;
-//}
-//
-//.simple-keyboard.myTheme1 .hg-button {
-//  height: 50px;
-//  display: flex;
-//  justify-content: center;
-//  align-items: center;
-//  background: rgba(0, 0, 0, 0.5);
-//  color: white;
-//}
-//
-//.simple-keyboard.myTheme1 .hg-button:active {
-//  background: #1c4995;
-//  color: white;
-//}
-//
-//#root .simple-keyboard.myTheme1 + .simple-keyboard-preview {
-//  background: #1c4995;
-//}
+  .error-low {
+    background-color: rgba(255, 77, 79, 0.4);
+  }
+
+  .error-medium {
+    background-color: rgba(255, 77, 79, 0.7);
+  }
+
+  .error-high {
+    background-color: rgba(255, 77, 79, 1);
+  }
+
+  .key-low {
+    background-color: #e6f4ff !important;
+    color: var(--color-text-secondary-button);
+  }
+
+  .key-medium {
+    background-color: #91caff;
+    color: var(--color-text-secondary-button);
+  }
+
+  .key-high {
+    background-color: #1677ff;
+  }
+}
