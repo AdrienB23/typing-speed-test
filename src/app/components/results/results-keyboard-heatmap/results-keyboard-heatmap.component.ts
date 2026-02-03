@@ -100,6 +100,7 @@ export class ResultsKeyboardHeatmapComponent implements AfterViewInit, OnChanges
     const maxPressed = Math.max(
       ...Object.values(this.keyStats).map(k => k.pressed)
     );
+    console.log(this.keyStats);
     if (maxPressed === 0) return;
 
     this.frequencyLow = Math.floor(maxPressed * 0.33);

@@ -218,11 +218,13 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     const typedChar = event.key;
 
     const expectedChar = currentText.text[this.currentIndex];
-    this.keyStrokes.push({
-      key: event.key,
-      code: event.code,
-      correct: this.isCorrect(typedChar, expectedChar)
-    });
+    if (expectedChar !== " " && expectedChar !== '.') {
+      this.keyStrokes.push({
+        key: event.key,
+        code: event.code,
+        correct: this.isCorrect(typedChar, expectedChar)
+      });
+    }
 
     this.textTyped += typedChar;
     if (this.textTyped.length > this.typedHistory.length) {
