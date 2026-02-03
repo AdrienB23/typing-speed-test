@@ -42,6 +42,13 @@
       "SUBTITLE": "You’ve set the bar. Now the real challenge begins—time to beat it."
     },
     "BEAT_SCORE": "Beat This Score",
-    "GO_AGAIN": "Go Again"
+    "GO_AGAIN": "Go Again",
+    "HEATMAP": {
+      "KEYBOARD": "Keyboard Heatmap",
+      "ERROR": "Errors",
+      "FREQUENCY": "Frequency",
+      "ERRORS_PER_KEY": "Errors per key",
+      "KEYSTROKES_PER_KEY": "Keystrokes per key"
+    }
   }
 }
