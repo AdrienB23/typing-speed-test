@@ -28,24 +28,17 @@
   padding-top: var(--spacing-250);
   padding-bottom: var(--spacing-400);
   width: 100%;
-
-  .stats-cell {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-150);
-    padding: var(--spacing-200) var(--spacing-300);
-    border: solid 1px var(--color-border-stats);
-    border-radius: var(--radius-8);
-    background-color: var(--color-bg-primary);
-    width: 160px;
-  }
 }
 
-.buttons-container {
+.stats-cell {
   display: flex;
-  justify-content: center;
-  gap: var(--spacing-250);
-  width: 100%;
+  flex-direction: column;
+  gap: var(--spacing-150);
+  padding: var(--spacing-200) var(--spacing-300);
+  border: solid 1px var(--color-border-stats);
+  border-radius: var(--radius-8);
+  background-color: var(--color-bg-primary);
+  width: 160px;
 }
 
 .confetti-container {

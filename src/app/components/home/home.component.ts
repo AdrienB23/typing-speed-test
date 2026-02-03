@@ -24,8 +24,6 @@ import { ScreenService } from '../../shared/services/screen.service';
 import { Select } from 'primeng/select';
 import { RadioButton } from 'primeng/radiobutton';
 import { ProgressSpinner } from 'primeng/progressspinner';
-import { KeyStroke } from '../../shared/models/key-stroke';
-import { KeyStats } from '../../shared/models/key-stats';
 
 @Component({
   selector: 'app-home',
@@ -54,12 +52,10 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   @Output() wrongCharsChange = new EventEmitter<number>();
   @Output() testFinished = new EventEmitter<void>();
   @Output() personalBestChange = new EventEmitter<number>();
-  @Output() keyStatsChange = new EventEmitter<Record<string, KeyStats>>();
   @ViewChild('hiddenInput') hiddenInput!: ElementRef<HTMLInputElement>;
   @ViewChild('textBox') textBox!: ElementRef<HTMLDivElement>;
   @ViewChild('currentSpan') charSpan!: ElementRef<HTMLSpanElement>;
 
-  screen = inject(ScreenService);
   time: number = 60;
   difficultyOptions!: { label: string, value: string }[];
   modeOptions!: { label: string, value: string }[];
@@ -67,6 +63,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   selectedDifficulty: 'easy' | 'medium' | 'hard' = 'easy';
   selectedMode: 'time' | 'passage' = "time";
   selectedTime = 60;
+  screen = inject(ScreenService);
   skipChars = ["—"];
 
   currentText: DataText | null = null;
@@ -76,10 +73,8 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   startTime!: number;
   timerId: any = null;
   isTimerRunning = false;
-
-  keyStrokes: KeyStroke[] = [];
-
   protected readonly HomeState = HomeState;
+
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -106,7 +101,13 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['homeState'] && changes['homeState'].currentValue === HomeState.NOT_STARTED) {
       this.stopTimer();
-      this.resetVariables();
+      this.textTyped = "";
+      this.typedHistory = "";
+      this.currentIndex = 0;
+      this.time = this.selectedTime;
+      this.wpm = 0;
+      this.accuracy = 100;
+      this.correctChars = 0;
       this.loadText();
     }
   }
@@ -203,7 +204,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
       if (this.currentIndex > 0) {
         this.currentIndex--;
         this.textTyped = this.textTyped.slice(0, -1);
-        this.keyStrokes.slice(0, -1);
+
       }
       return;
     }
@@ -216,13 +217,6 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     if (this.currentIndex >= currentText.text.length) return;
 
     const typedChar = event.key;
-
-    const expectedChar = currentText.text[this.currentIndex];
-    this.keyStrokes.push({
-      key: event.key,
-      code: event.code,
-      correct: this.isCorrect(typedChar, expectedChar)
-    });
 
     this.textTyped += typedChar;
     if (this.textTyped.length > this.typedHistory.length) {
@@ -283,10 +277,6 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     this.wpmChange.emit(this.wpm);
     this.accuracyChange.emit(this.accuracy);
     this.wrongCharsChange.emit(this.wrongChars);
-
-    const keyStats = this.buildKeyStats();
-    this.keyStatsChange.emit(keyStats);
-
     this.testFinished.emit();
     this.personalBestChange.emit(this.wpm);
   }
@@ -339,45 +329,9 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     this.wpm = Math.round((correctChars/5) / elapsedMinutes);
   }
 
-  buildKeyStats(): Record<string, KeyStats> {
-    const map: Record<string, KeyStats> = {};
-
-    for (const stroke of this.keyStrokes) {
-      if (!map[stroke.key]) {
-        map[stroke.key] = {
-          key: stroke.key,
-          code: stroke.code,
-          pressed: 0,
-          incorrect: 0,
-          correct: 0
-        };
-      }
-
-      map[stroke.key].pressed++;
-      if (!stroke.correct) {
-        map[stroke.key].incorrect++;
-      } else {
-        map[stroke.key].correct++;
-      }
-    }
-
-    return map;
-  }
-
   private recomputeStats(currentText: DataText) {
     this.updateWrongChars(currentText);
     this.updateAccuracy();
-  }
-
-  private resetVariables() {
-    this.textTyped = "";
-    this.typedHistory = "";
-    this.currentIndex = 0;
-    this.time = this.selectedTime;
-    this.wpm = 0;
-    this.accuracy = 100;
-    this.correctChars = 0;
-    this.keyStrokes = [];
   }
 
   private buildDifficultyOptions() {
