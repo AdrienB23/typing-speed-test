@@ -9,6 +9,7 @@ import { ResultsComponent } from './components/results/results.component';
 import { TranslateService } from '@ngx-translate/core';
 import { PersonalBestService } from './shared/services/personal-best.service';
 import { ResultState } from './shared/models/result-state.enum';
+import { KeyStats } from './shared/models/key-stats';
 
 @Component({
   selector: 'app-root',
@@ -32,6 +33,7 @@ export class App implements OnInit {
   resultState = ResultState.DEFAULT;
   appView = AppView.HOME;
   lang: 'en' | 'fr' = 'en';
+  keyStats!: Record<string, KeyStats>;
 
   protected readonly HomeState = HomeState;
 
@@ -74,6 +76,10 @@ export class App implements OnInit {
   changeLang(lang: 'en' | 'fr') {
     this.lang = lang;
     this.translate.use(lang);
+  }
+
+  onKeyStatsChange(keyStats: Record<string, KeyStats>) {
+    this.keyStats = keyStats;
   }
 
   protected readonly AppView = AppView;

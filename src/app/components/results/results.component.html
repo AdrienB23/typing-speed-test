@@ -3,7 +3,8 @@
        [class.completed]="resultState !== ResultState.NEW_BEST"
        [alt]="resultState === ResultState.NEW_BEST ? 'Party icon' : 'Completed icon'" class="result-icon"/>
   <div class="message-container center">
-    <p class="text-1 primary b" [class.mobile]="screen.isMobile()">{{ 'RESULTS.' + resultState + '.TITLE' | translate }}</p>
+    <p class="text-1 primary b"
+       [class.mobile]="screen.isMobile()">{{ 'RESULTS.' + resultState + '.TITLE' | translate }}</p>
     <p [class]="{
       'text-3': !screen.isMobile(),
       'text-5': screen.isMobile(),
@@ -26,13 +27,23 @@
         class="incorrect">{{ wrongChars }}</span></p>
     </div>
   </div>
-  <button class="button-secondary button-icon" (click)="restart()">
+  <div class="buttons-container">
+    <button class="button-secondary contrast text-3 sb" (click)="showHeatmap()">{{ 'RESULTS.HEATMAP.KEYBOARD' | translate }}
+    </button>
+    <button class="button-secondary button-icon" (click)="restart()">
     <span class="text-3 sb">
       {{ (resultState === ResultState.DEFAULT ? 'RESULTS.GO_AGAIN' : 'RESULTS.BEAT_SCORE') | translate }}
     </span>
-    <img src="assets/images/icon-restart-black.svg" alt="Restart Icon"/>
-  </button>
+      <img src="assets/images/icon-restart-black.svg" alt="Restart Icon"/>
+    </button>
+  </div>
 </div>
+<p-dialog [modal]="true" [maximizable]="true" [(visible)]="heatmapVisible">
+  <ng-template #header>
+    <p class="text-2 primary b">{{ 'RESULTS.HEATMAP.KEYBOARD' | translate }}</p>
+  </ng-template>
+  <app-results-keyboard-heatmap [keyStats]="keyStats" [lang]="lang"/>
+</p-dialog>
 @if (resultState === ResultState.NEW_BEST) {
   <div class="confetti-container">
     <img src="assets/images/pattern-confetti.svg" alt="Confetti"/>

@@ -1,0 +1,52 @@
+<div class="content-container">
+  <div class="keyboard-container">
+    <span class="text-3 primary b">{{ "RESULTS.HEATMAP.ERROR" | translate }}</span>
+    <div class="simple-keyboard" #keyboardErrorContainer></div>
+      @if (errorHigh !== 0) {
+        <div class="legend-container">
+          <span class="text-5 primary">{{ "RESULTS.HEATMAP.ERRORS_PER_KEY" | translate }}</span>
+          @if (errorLow !== 0) {
+            <div class="legend-row">
+              <div class="legend error-low"></div>
+              <span>< {{ errorLow }}</span>
+            </div>
+          }
+          @if (errorHigh > 1) {
+            <div class="legend-row">
+              <div class="legend error-medium"></div>
+              <span>{{ errorLow !== 0 ? '>= ' + errorLow + ' ' : '' }}< {{ errorHigh }} </span>
+            </div>
+          }
+          <div class="legend-row">
+            <div class="legend error-high"></div>
+            <span>{{ errorHigh > 1 ? '>=' : '=' }} {{ errorHigh }}</span>
+          </div>
+        </div>
+      }
+  </div>
+  <div class="keyboard-container">
+    <span class="text-3 primary b">{{ "RESULTS.HEATMAP.FREQUENCY" | translate }}</span>
+    <div class="simple-keyboard" #keyboardFrequencyContainer></div>
+    @if (frequencyHigh !== 0) {
+      <div class="legend-container">
+        <span class="text-5 primary">{{ "RESULTS.HEATMAP.KEYSTROKES_PER_KEY" | translate }}</span>
+        @if (frequencyLow !== 0) {
+          <div class="legend-row">
+            <div class="legend key-low"></div>
+            <span>< {{ frequencyLow }}</span>
+          </div>
+        }
+        @if (frequencyHigh > 1) {
+          <div class="legend-row">
+            <div class="legend key-medium"></div>
+            <span>{{ frequencyLow !== 0 ? '>= ' + frequencyLow + ' ' : '' }}≤ {{ frequencyHigh }} </span>
+          </div>
+        }
+        <div class="legend-row">
+          <div class="legend key-high"></div>
+          <span>{{ frequencyHigh > 1 ? '>=' : '=' }} {{ frequencyHigh }}</span>
+        </div>
+      </div>
+    }
+  </div>
+</div>
