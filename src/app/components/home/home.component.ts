@@ -196,32 +196,40 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  onKeyPress(event: KeyboardEvent, currentText: DataText) {
+  onKeyPress(event: Event, currentText: DataText) {
     if (this.homeState === HomeState.NOT_STARTED) return;
 
-    if (event.key === "Backspace") {
+    const inputEvent = event as InputEvent;
+    const input = event.target as HTMLInputElement;
+
+    if (inputEvent.inputType === 'deleteContentBackward') {
       if (this.currentIndex > 0) {
         this.currentIndex--;
         this.textTyped = this.textTyped.slice(0, -1);
         this.keyStrokes.slice(0, -1);
       }
+      input.value = '';
       return;
     }
-    if (event.key.length !== 1) return;
+    const typedChar = inputEvent.data;
+    if (!typedChar || typedChar.length !== 1) {
+      input.value = '';
+      return;
+    }
 
     if (!this.isTimerRunning) {
       this.startTimer();
     }
 
-    if (this.currentIndex >= currentText.text.length) return;
-
-    const typedChar = event.key;
+    if (this.currentIndex >= currentText.text.length) {
+      input.value = '';
+      return;
+    }
 
     const expectedChar = currentText.text[this.currentIndex];
     if (expectedChar !== " " && expectedChar !== '.') {
       this.keyStrokes.push({
-        key: event.key,
-        code: event.code,
+        key: typedChar,
         correct: this.isCorrect(typedChar, expectedChar)
       });
     }
@@ -230,6 +238,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     if (this.textTyped.length > this.typedHistory.length) {
       this.typedHistory += typedChar;
     }
+
     this.currentIndex++;
 
     const currentChar = currentText.text[this.currentIndex];
@@ -238,6 +247,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
       this.typedHistory += currentChar;
       this.currentIndex++;
     }
+
     this.scrollToActiveChar();
 
     if (this.textTyped.length === currentText.text.length) {
@@ -245,6 +255,8 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     this.recomputeStats(currentText);
+
+    input.value = '';
 
     event.preventDefault();
   }
@@ -348,7 +360,6 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
       if (!map[stroke.key]) {
         map[stroke.key] = {
           key: stroke.key,
-          code: stroke.code,
           pressed: 0,
           incorrect: 0,
           correct: 0

@@ -97,7 +97,7 @@
           'scrollbar': true,
           'blur': homeState === HomeState.NOT_STARTED
         }" #textBox>
-          <p class="typing-test text-1 r secondary" (keydown)="onKeyPress($event, currentText)">
+          <p class="typing-test text-1 r secondary" (input)="onKeyPress($event, currentText)">
             @for (word of getWords(currentText.text); track $index) {
               <span class="word">
               @for (item of word; track item.index) {
@@ -117,7 +117,7 @@
             </span>
             }
           </p>
-          <input #hiddenInput type="text" class="hidden-input" (keydown)="onKeyPress($event, currentText)"
+          <input #hiddenInput type="text" class="hidden-input" (input)="onKeyPress($event, currentText)"
                  [autofocus]="true"/>
         </div>
         @if (homeState === HomeState.NOT_STARTED) {
