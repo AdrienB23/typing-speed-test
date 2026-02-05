@@ -28,12 +28,11 @@
     </div>
   </div>
   <div class="buttons-container">
-    <button class="button-secondary contrast text-3 sb" (click)="showHeatmap()">{{ 'RESULTS.HEATMAP.KEYBOARD' | translate }}
-    </button>
+    <button class="button-secondary contrast text-3 sb" (click)="showHeatmap()">{{ 'RESULTS.HEATMAP.KEYBOARD' | translate }}</button>
     <button class="button-secondary button-icon" (click)="restart()">
-    <span class="text-3 sb">
-      {{ (resultState === ResultState.DEFAULT ? 'RESULTS.GO_AGAIN' : 'RESULTS.BEAT_SCORE') | translate }}
-    </span>
+      <span class="text-3 sb">
+        {{ (resultState === ResultState.DEFAULT ? 'RESULTS.GO_AGAIN' : 'RESULTS.BEAT_SCORE') | translate }}
+      </span>
       <img src="assets/images/icon-restart-black.svg" alt="Restart Icon"/>
     </button>
   </div>
