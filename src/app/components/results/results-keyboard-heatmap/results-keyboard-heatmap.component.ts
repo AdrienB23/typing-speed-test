@@ -66,6 +66,7 @@ export class ResultsKeyboardHeatmapComponent implements AfterViewInit, OnChanges
     this.showErrorsHeatmap();
     this.showFrequencyHeatmap();
     this.cdr.detectChanges();
+    console.log(this.keyStats);
   }
 
   showErrorsHeatmap() {
