@@ -2,24 +2,29 @@
   <div class="keyboard-container">
     <span class="text-3 primary b">{{ "RESULTS.HEATMAP.ERROR" | translate }}</span>
     <div class="simple-keyboard" #keyboardErrorContainer></div>
-      @if (errorHigh !== 0) {
+      @if (errorDistinctValues > 0) {
         <div class="legend-container">
-          <span class="text-5 primary">{{ "RESULTS.HEATMAP.ERRORS_PER_KEY" | translate }}</span>
-          @if (errorLow !== 0) {
+          <span class="text-5 primary">
+            {{ "RESULTS.HEATMAP.ERRORS_PER_KEY" | translate }}
+          </span>
+
+          @if (errorDistinctValues >= 3 && errorLow > 1) {
             <div class="legend-row">
               <div class="legend error-low"></div>
               <span>< {{ errorLow }}</span>
             </div>
           }
-          @if (errorHigh > 1) {
+
+          @if (errorDistinctValues >= 2) {
             <div class="legend-row">
               <div class="legend error-medium"></div>
-              <span>{{ errorLow !== 0 ? '>= ' + errorLow + ' ' : '' }}< {{ errorHigh }} </span>
+              <span>{{ errorDistinctValues >= 3 ? '>= ' + errorLow + ' < ' + errorHigh : '< ' + errorHigh }}</span>
             </div>
           }
+
           <div class="legend-row">
             <div class="legend error-high"></div>
-            <span>{{ errorHigh > 1 ? '>=' : '=' }} {{ errorHigh }}</span>
+            <span>{{ errorDistinctValues === 1 ? '=' : '>=' }} {{ errorHigh }}</span>
           </div>
         </div>
       }
@@ -27,24 +32,34 @@
   <div class="keyboard-container">
     <span class="text-3 primary b">{{ "RESULTS.HEATMAP.FREQUENCY" | translate }}</span>
     <div class="simple-keyboard" #keyboardFrequencyContainer></div>
-    @if (frequencyHigh !== 0) {
+    @if (frequencyDistinctValues > 0) {
       <div class="legend-container">
-        <span class="text-5 primary">{{ "RESULTS.HEATMAP.KEYSTROKES_PER_KEY" | translate }}</span>
-        @if (frequencyLow !== 0) {
+        <span class="text-5 primary">
+          {{ 'RESULTS.HEATMAP.KEYSTROKES_PER_KEY' | translate }}
+        </span>
+
+        @if (frequencyDistinctValues >= 3 && frequencyLow > 1) {
           <div class="legend-row">
             <div class="legend key-low"></div>
             <span>< {{ frequencyLow }}</span>
           </div>
         }
-        @if (frequencyHigh > 1) {
+
+        @if (frequencyDistinctValues >= 2) {
           <div class="legend-row">
             <div class="legend key-medium"></div>
-            <span>{{ frequencyLow !== 0 ? '>= ' + frequencyLow + ' ' : '' }}≤ {{ frequencyHigh }} </span>
+            <span>
+          {{ frequencyDistinctValues >= 3
+              ? '>= ' + frequencyLow + ' < ' + frequencyHigh
+              : '< ' + frequencyHigh
+              }}
+        </span>
           </div>
         }
+
         <div class="legend-row">
           <div class="legend key-high"></div>
-          <span>{{ frequencyHigh > 1 ? '>=' : '=' }} {{ frequencyHigh }}</span>
+          <span>{{ frequencyDistinctValues === 1 ? '=' : '>=' }} {{ frequencyHigh }}</span>
         </div>
       </div>
     }
