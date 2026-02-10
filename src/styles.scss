@@ -122,7 +122,7 @@ button {
 }
 
 button:focus:not(.p-button), .p-radiobutton:focus {
-  outline: solid 2px var(--color-outline-button-focus);
+  outline: solid 2px var(--color-focus-ring);
   outline-offset: var(--spacing-25);
 }
 
@@ -205,7 +205,7 @@ button:focus:not(.p-button), .p-radiobutton:focus {
   }
 
   .p-togglebutton:focus {
-    outline: solid 2px var(--color-outline-button-focus);
+    outline: solid 2px var(--color-focus-ring);
     border: solid 1px var(--color-border-button-focus);
     outline-offset: var(--spacing-25);
     color: var(--color-text-primary) !important;
@@ -225,6 +225,13 @@ button:focus:not(.p-button), .p-radiobutton:focus {
   min-width: 80px;
 }
 
+.p-select:focus, .p-select:focus-within {
+  outline: solid 2px var(--color-focus-ring);
+  border: solid 1px var(--color-border-button-focus);
+  outline-offset: var(--spacing-25);
+  color: var(--color-text-primary) !important;
+}
+
 .p-select-overlay  {
   top: 7px !important;
 }
@@ -235,4 +242,10 @@ p-selectitem:not(:last-child) .p-select-option {
 
 .p-dialog-header {
   gap: var(--spacing-200);
+
+  .p-button-icon-only:focus {
+    outline: solid 2px var(--color-focus-ring);
+    outline-offset: 2px;
+    background-color: var(--color-bg-contrast-button);
+  }
 }
