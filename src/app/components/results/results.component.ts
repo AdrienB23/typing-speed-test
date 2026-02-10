@@ -5,13 +5,15 @@ import { ScreenService } from '../../shared/services/screen.service';
 import { Dialog } from 'primeng/dialog';
 import { ResultsKeyboardHeatmapComponent } from './results-keyboard-heatmap/results-keyboard-heatmap.component';
 import { KeyStats } from '../../shared/models/key-stats';
+import { ResultsCardComponent } from './results-card/results-card.component';
 
 @Component({
   selector: 'app-results',
   imports: [
     TranslatePipe,
     Dialog,
-    ResultsKeyboardHeatmapComponent
+    ResultsKeyboardHeatmapComponent,
+    ResultsCardComponent
   ],
   templateUrl: './results.component.html',
   styleUrl: './results.component.scss',
@@ -27,6 +29,7 @@ export class ResultsComponent {
   @Output() restartTest = new EventEmitter<void>();
 
   heatmapVisible = false;
+  resultCardVisible = false;
 
   screen = inject(ScreenService);
 
@@ -36,6 +39,10 @@ export class ResultsComponent {
 
   showHeatmap() {
     this.heatmapVisible = true;
+  }
+
+  showResultCard() {
+    this.resultCardVisible = true;
   }
 
   protected readonly ResultState = ResultState;

@@ -35,6 +35,12 @@
       </span>
       <img src="assets/images/icon-restart-black.svg" alt="Restart Icon"/>
     </button>
+    <button class="button-secondary button-icon contrast" (click)="showResultCard()">
+      <span class="text-3 sb">
+        {{ 'RESULTS.CARD.SHARE' | translate }}
+      </span>
+      <img src="assets/images/icon-restart.svg" alt="Restart Icon"/>
+    </button>
   </div>
 </div>
 <p-dialog [modal]="true" [maximizable]="true" [(visible)]="heatmapVisible">
@@ -42,6 +48,12 @@
     <p class="text-2 primary b">{{ 'RESULTS.HEATMAP.KEYBOARD' | translate }}</p>
   </ng-template>
   <app-results-keyboard-heatmap [keyStats]="keyStats" [lang]="lang"/>
+</p-dialog>
+<p-dialog [modal]="true" [maximizable]="true" [(visible)]="resultCardVisible">
+  <ng-template #header>
+    <p class="text-2 primary b">{{ 'RESULTS.CARD.SHARE' | translate }}</p>
+  </ng-template>
+  <app-results-card></app-results-card>
 </p-dialog>
 @if (resultState === ResultState.NEW_BEST) {
   <div class="confetti-container">

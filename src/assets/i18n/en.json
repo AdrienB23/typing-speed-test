@@ -49,6 +49,9 @@
       "FREQUENCY": "Frequency",
       "ERRORS_PER_KEY": "Errors per key",
       "KEYSTROKES_PER_KEY": "Keystrokes per key"
+    },
+    "CARD": {
+      "SHARE": "Share"
     }
   }
 }

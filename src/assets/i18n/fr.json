@@ -49,6 +49,9 @@
       "FREQUENCY": "Fréquence",
       "ERRORS_PER_KEY": "Erreurs par touche",
       "KEYSTROKES_PER_KEY": "Nombre de frappes par touche"
+    },
+    "CARD": {
+      "SHARE": "Partager"
     }
   }
 }
