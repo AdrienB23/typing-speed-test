@@ -98,8 +98,9 @@ $radius-full: 999px;
   --color-border-button-focus: #{map.get($neutral-palette, 0)};
   --color-border-button: #{map.get($neutral-palette, 500)};
   --color-border-stats: #{map.get($neutral-palette, 700)};
+  --color-focus-ring: #{map.get($blue-palette, 400)};
 
-  --color-outline-button-focus: #{map.get($blue-palette, 400)};
+  --color-radio-button: #{map.get($neutral-palette, 0)};
 
   --color-divider: #{map.get($neutral-palette, 700)};
 
@@ -153,9 +154,9 @@ $radius-full: 999px;
   --p-button-text-secondary-hover-background: var(--color-bg-contrast-button);
   --p-button-icon-only-width: var(--spacing-500);
 
-    /* ============================================================
-     SECTION : SELECT BUTTON
-     ============================================================ */
+  /* ============================================================
+   SECTION : SELECT BUTTON
+   ============================================================ */
   --p-selectbutton-border-radius: var(--radius-8);
 
   /* ============================================================
@@ -198,23 +199,34 @@ $radius-full: 999px;
   --p-radiobutton-height: 16px;
   --p-radiobutton-icon-size: 6px;
   --p-radiobutton-background: var(--color-bg-contrast-button);
-  --p-radiobutton-border-color: var(--color-border-button);
+  --p-radiobutton-border-color: var(--color-radio-button);
 
-  --p-radiobutton-hover-border-color: var(--color-border-button);
+  --p-radiobutton-hover-border-color: var(--color-radio-button);
+
+  --p-radiobutton-focus-ring-width: 2px;
+  --p-radiobutton-focus-ring-style: solid;
+  --p-radiobutton-focus-ring-color: var(--color-focus-ring);
+  --p-radiobutton-focus-ring-offset: 2px;
 
   --p-radiobutton-checked-background: var(--color-bg-checked-radio-button);
   --p-radiobutton-icon-checked-color: var(--color-bg-primary);
-  --p-radiobutton-checked-hover-background: var(--color-bg-checked-radio-button);
+
   --p-radiobutton-icon-checked-hover-color: var(--color-bg-primary);
+  --p-radiobutton-checked-hover-background: var(--color-bg-checked-radio-button);
 
   /* ============================================================
    SECTION : SELECT
    ============================================================ */
   --p-select-border-color: var(--color-border-button);
   --p-select-hover-border-color: var(--color-border-button);
-  --p-select-focus-border-color: var(--color-border-button);
   --p-select-color: var(--color-text-primary);
   --p-select-border-radius: var(--radius-8);
+
+  --p-select-focus-border-color: var(--color-border-button-focus);
+  --p-select-focus-ring-width: 2px;
+  --p-select-focus-ring-color: var(--color-focus-ring);
+  --p-select-focus-ring-style: solid;
+  --p-select-focus-ring-offset: 2px;
 
   --p-select-overlay-background: var(--color-bg-overlay);
   --p-select-overlay-border-radius: var(--radius-8);
