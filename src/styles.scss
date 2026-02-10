@@ -242,4 +242,10 @@ p-selectitem:not(:last-child) .p-select-option {
 
 .p-dialog-header {
   gap: var(--spacing-200);
+
+  .p-button-icon-only:focus {
+    outline: solid 2px var(--color-focus-ring);
+    outline-offset: 2px;
+    background-color: var(--color-bg-contrast-button);
+  }
 }

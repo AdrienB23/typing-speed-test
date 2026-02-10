@@ -164,8 +164,10 @@ $radius-full: 999px;
    ============================================================ */
   --p-togglebutton-color: var(--color-text-primary);
   --p-togglebutton-padding: var(--spacing-75) var(--spacing-125);
+
   --p-togglebutton-border-radius: var(--radius-8);
   --p-togglebutton-border-color: var(--color-border-button);
+
   --p-togglebutton-checked-color: var(--color-text-selected);
   --p-togglebutton-checked-border-color: var(--color-border-button-selected);
 
@@ -192,9 +194,14 @@ $radius-full: 999px;
   --p-toggleswitch-handle-checked-color: var(--color-bg-secondary-button);
   --p-toggleswitch-handle-checked-hover-color: var(--color-bg-secondary-button);
 
-    /* ============================================================
-     SECTION : RADIO BUTTON
-     ============================================================ */
+  --p-toggleswitch-focus-ring-width: 2px;
+  --p-toggleswitch-focus-ring-style: solid;
+  --p-toggleswitch-focus-ring-color: var(--color-focus-ring);
+  --p-toggleswitch-focus-ring-offset: 2px;
+
+  /* ============================================================
+   SECTION : RADIO BUTTON
+   ============================================================ */
   --p-radiobutton-width: 16px;
   --p-radiobutton-height: 16px;
   --p-radiobutton-icon-size: 6px;
